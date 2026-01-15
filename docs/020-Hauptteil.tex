@@ -1,1 +1,103 @@
-\chapter{X}
+\chapter{Datenbeschreibung}
+- irgendwas ...
+----------------------------------------------
+\section{Quelle}
+- Amazon Reviews’23 Datensatz (McAuley Lab)
+- Allgemeine Beschreibung des Datensatzes
+- Wahl des 0-core-Splits (oder 5-core?) und Begründung
+
+\section{Ausgewählte Produktkategorien}
+- Beschreibung der verwendeten Kategorien (mind. drei)
+- Begründung der Auswahl
+
+\section{Datenumfang und Aufteilung}
+- Anzahl der Rezensionen pro Kategorie
+- Aufteilung in Trainings- und Testsatz
+
+\section{Verteilung der Bewertungen}
+- Häufigkeit der Ratings (1–5 Sterne)
+- Vergleich von Trainings- und Testsatz
+
+
+
+\chapter{Datenvorverarbeitung}
+- irgendwas über Preprocessing
+----------------------------------------------
+\section{Trennung von Eingabe- und Ausgabedaten}
+- Definition der Eingabedaten (Titel + Rezensionstext)
+- Definition der Zielvariable (numerische Bewertung)
+
+\section{Textaufbereitung}
+- Zusammenführung von Titel und Text
+- Tokenisierung
+- Entfernen von Stoppwörtern
+- Umgang mit Sonderzeichen und Groß-/Kleinschreibung
+
+\section{Numerische Repräsentation}
+- Verwendung von TF-IDF
+- Wahl der n-Gramm-Länge (z. B. Unigramme)
+- Begründung der Feature-Darstellung
+
+
+
+\chapter{Modell und Methodik}
+- Problemformulierung als Klassifikationsaufgabe
+- Supervised Learning
+- Mehrklassen-Klassifikation (5 Klassen)
+----------------------------------------------
+\section{Lineare Regression}
+- [1] discriminative
+- [1] kategorien selbst bestimmen
+- Beschreibung des gewählten Klassifikators
+- Begründung der Eignung für Textklassifikation
+
+\section{Naive Bayes}
+- [1] generative 
+- [1] rechnet mit wahrscheinlichkeiten
+- Beschreibung des gewählten Klassifikators
+- Begründung der Eignung für Textklassifikation
+
+VERGLEICH 
+- Both methods are simple; Naive Bayes is the simplest one.
+- Both methods are interpretable: you can look at the features which 
+influenced the predictions most (in Naive Bayes - usually words, in logistic 
+regression - whatever you defined).
+- Naive Bayes is very fast to train - it requires only one pass through the 
+training data to evaluate the counts. For logistic regression, this is not 
+the case: you have to go over the data many times until the gradient ascent 
+converges.
+- Naive Bayes is too "naive" - it assumed that features (words) are 
+conditionally independent given class. Logistic regression does not make this 
+assumption - we can hope it is better.
+- Both methods use manually defined feature representation (in Naive Bayes, 
+BOW is the standard choice, but you still choose this yourself). While 
+manually defined features are good for interpretability, they may be no so 
+good for performance - you are likely to miss something which can be useful 
+for the task.
+
+\section{Trainingsprozess}
+- Training auf dem Trainingsdatensatz
+- Keine separate Validierungsmenge
+- Begründung des Vorgehens
+
+
+
+\chapter{Evaluation und Ergebnisse}
+- irgendwas...
+----------------------------------------------
+\section{Evaluationsmetriken}
+- Accuracy
+- Confusion Matrix
+- Begründung der Metrikauswahl
+
+\section{Gesamtergebnisse}
+- Accuracy auf dem Testsatz
+- Darstellung und Interpretation der Confusion Matrix
+
+\section{Ergebnisse nach Produktkategorien (optional)}
+- Vergleich der Modellleistung zwischen Kategorien
+- Kurze Analyse der Unterschiede
+
+\section{Ergebnisse von zwei Algorithmen (optional)}
+- Vergleich der Modellleistung zwischen Algorithmen (z.B. Naive Bayes und NN)
+- Kurze Analyse der Unterschiede

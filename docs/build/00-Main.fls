@@ -293,12 +293,16 @@ INPUT ./pics/logo.pdf
 INPUT ./pics/logo.pdf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txr.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/txb.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT c:/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc
+INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
+INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/vf/public/txfonts/txr.vf
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxptmr.tfm
 INPUT c:/texlive/2025/texmf-dist/fonts/tfm/public/txfonts/rtxr.tfm
@@ -423,6 +427,7 @@ INPUT build/030-Schluss.aux
 INPUT build/030-Schluss.aux
 INPUT build/00-Main.run.xml
 OUTPUT build/00-Main.run.xml
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmr8a.pfb
