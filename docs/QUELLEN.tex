@@ -1,14 +1,122 @@
 [1] https://lena-voita.github.io/nlp_course/text_classification.html#main_content
 [2] https://amazon-reviews-2023.github.io/data_processing/0core.html
-[3] https://aclanthology.org/P11-1015.pdf
-[4] https://web.stanford.edu/~jurafsky/slp3/
+[3] https://web.stanford.edu/~jurafsky/slp3/
+[4] https://www.nltk.org/book/
 
 
-[1] "The most popular datasets are for sentiment classification. They consist 
-of reviews of movies, places or restaurants, and products. There are also 
-datasets for question type classification and topic classification."
+[1] 
+"A classification model can be either generative or discriminative.
+- generative: based on probability distribution
+- discriminative: learns borders between classes"
 
-[1] "A classification model can be either generative or discriminative.
-    - generative: based on probability distribution
-    - discriminative: learns borders between classes"
+[1] 
+"Naive Bayes ist generative. Die Annahmen sind:
+- Wortfolge ist egal
+- Merkmale (also die Wörter) sind unabhängig voneinander wenn die Klasse
+bekannt ist {Das Auftreten von „good“ist unabhängig vom Auftreten von „very“,
+wenn wir wissen, dass der Text positiv ist.} 
+In Wirklichkeit ist es nicht immer der Fall, deswegen NAIVE
+    
+Daten müssen kategorial sein, also diskret. Meistens ist die Repräsentation
+ein BoW-Vektor, ale es sind Zählwerte von Wörtern
+    
+einfach, schnell, aber unrealistische Unabhängigkeitsannahmen"
 
+[1] 
+"Logistic Regression ist discriminative. 
+
+Merkmale müssen nicht kategorial sein. Man kann BoW nutzen oder was anderes.
+Hier wird jedes Feature mit einem Gewicht multipliziert und anschließend
+ein Bias addiert. Die Klassenwahrscheinlichkeit enthält man durch 
+[Normalisierung mit Softmax (Aktivierungsfunktion für multinomiale LR). Dies 
+ergibt einen K-dimensionalen Vektor (Wahrscheinlichkeitsverteilung für jede 
+Klasse K)] [3, Chapter 4]
+
+Keine starken Annahmen wie bei Naive Bayes.
+
+einfach, keine Unabhängigkeitsannahmen, aber nicht so schnell"
+
+    
+[3, Chapter 4] 
+Typische Featuers sind
+- Häufigkeit positvier/negative Wörter (z.B. "awesome" vs "awful")
+- Vorhandensein von Negationen (z.B. "no")
+- Satzzeichen (z.B. Ausrufezeichen) und Textlänge
+
+Cross-Entropy-Loss: Verlustfunktion, Abstand zwischen vorhergesagten
+    Wahrscheinlichkeiten und dem tatsächlichen Label, Ziel: Minimierung
+Stochastisches Gradient Descent: Verfahren, um die Gewichte schrittweise so
+    anzupassen, dass das Minimum der Verlustfunktion erreicht wird
+Regularisierung: Um Overfitting zu vermeiden werden große Gewichte durch
+    einen Strafterm in der Verlustfunktion bestraft.
+
+Bewertungsmetriken: Precision, Recall, F1-Score
+-> Accuracy ist bei ungleich verteilten Daten kein guter Indikator
+
+
+[3, Chapter 5]
+Embeddings: ein allgemeiner Begriff für Vektordarstellungen von Wörtern, die
+    semantische Ähnlichkeiten kodieren. Ähnliche Wörter liegen näher zueinander
+    Hauptsächlich für neuronale Netze 
+    
+
+[3, Chapter B]
+NAIVE BAYES 
+- Laplace-Glättung (Add-one smoothing): um zu verhindern, dass die Wahrscheinlichkeit
+für ein Wort, das nicht im Trainingsset vorkam, Null wird, was die gesamte 
+Berechnung zerstören würde
+- Binarisierung: Bei der Sentimentanalyse ist es oft wichtiger, OB ein Wort 
+vorkommt, als wie oft. Hierbei werden Wortzählungen auf 1 begrenzt, was die 
+Performance oft verbessert
+- Umgang mit Negation: Eine einfache, effektive Methode ist das Voranstellen 
+eines Präfixes (z. B. NOT_) vor jedes Wort nach einer Verneinung 
+(wie „nicht“, „kein“) bis zum nächsten Satzzeichen 
+(z. B. „didn’t like this movie , but I" -> "didn’t NOT_like NOT_this NOT_movie , but I")
+
+Signifikanztests: Um zu beweisen, dass ein Modell wirklich besser ist als ein 
+anderes, sollten statistische Tests wie der Bootstrap-Test durchgeführt werden
+
+Sentiment-Lexika: Wenn wenig Trainingsdaten vorhanden sind, können 
+vordefinierte Listen positiver und negativer Wörter (z. B. MPQA) als Merkmale 
+genutzt werden.
+
+
+[3, Chapter 22]
+- Valenz-Dimension: Sentiment wird oft über die Dimension der Valenz definiert. 
+In der Analyse von Rezensionen ist dies die Messung, wie sehr eine Person ein 
+Produkt mag oder ablehnt.
+- Arten von Sentiment-Lexika:
+    - Binär: Einfache Listen für positive und negative Wörter 
+    (z. B. MPQA, Hu und Liu)
+    - Intensitätsbasiert: Lexika, die Wörter auf Skalen (z. B. 0 bis 1) für 
+    Dimensionen wie Valenz, Erregung und Dominanz bewerten 
+    (z. B. NRC VAD Lexicon)
+- Typische Merkmale in Rezensionen:
+    - 1-Sterne-Rezensionen: Nutzen häufig logische Negationen (no, not) und 
+    beziehen sich oft auf Personen (z. B. manager, waiter)
+    - 5-Sterne-Rezensionen: Nutzen verstärkt Emphatika und Universalbegriffe 
+    (very, highly, always)
+- Feature-basierte Ansätze: In überwachten Modellen (wie logistischer 
+Regression) dienen Wortzählungen aus Lexika als zusätzliche Merkmale, um die 
+Genauigkeit zu verbessern
+
+
+[3, Chapter H]
+Kernanforderungen an das System:
+    - Eindeutigkeit: Während Rezensionen sprachlich mehrdeutig sein können, 
+    muss die interne Repräsentation der Meinung absolut eindeutig sein
+    - Kanonische Form: Verschiedene Formulierungen, die dasselbe ausdrücken 
+    (z. B. „Der Akku ist schwach“ vs. „Die Batterie hält nicht lange“), 
+    sollten idealerweise auf dieselbe formale Repräsentation abgebildet 
+    werden, um die Auswertung zu vereinfachen
+    - Inferenz: Ein System sollte in der Lage sein, Wissen abzuleiten, das 
+    nicht explizit im Text steht. Beispiel: Wenn ein User schreibt 
+    „Ich brauchte eine Rückerstattung“, kann das System auf ein negatives 
+    Erlebnis schließen.
+
+
+[keine Quelle]
+- Embeddings eher für neuronale Netze (auch für LR), besser LR {TF-IDF oder BoW}
+und Naive Bayes {TF-IDS oder BoW}
+- OneHot Vektoren sind hochdimensionale Vektoren, die jedes Wort eindeutig
+kodieren, aber keine semantische Informationen speichern
