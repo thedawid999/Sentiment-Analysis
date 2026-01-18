@@ -1,9 +1,24 @@
 [1] https://lena-voita.github.io/nlp_course/text_classification.html#main_content
 [2] https://amazon-reviews-2023.github.io/data_processing/0core.html
 [3] https://web.stanford.edu/~jurafsky/slp3/
-[4] https://www.nltk.org/book/
+[4] https://www.qualtrics.com/de/erlebnismanagement/marktforschung/sentiment-analysis/
+[5] https://mindsquare.de/knowhow/sentimentanalyse/
+[6] https://blog.jetbrains.com/de/pycharm/2025/06/einfuehrung-in-die-sentimentanalyse-mit-python/
 
 
+[2]
+0-core:
+    - vollständiger Rohdatensatz ohne Vorfilterung
+    - VORTEIL: maximale Vielfalt und Realismus 
+    - NACHTEIL: enthält Spam, Fake-Reviews, User mit nur 1 Review, Produkte mit
+    wenigen Bewertungen. Hoher Rechenaufwand und schlechte Qualität
+5-core:
+    - nur User und Produkte, die mind. 5 Bewertungen haben
+    - NACHTEIL: repräsentiert keine reale Verteilung, Verlust von Kontext
+    - VORTEIL: höhere Qualität, weniger Rauschen, weniger Daten also schneller
+    zum Trainieren und besser geeignet für ein Studiumprojekt
+
+    
 [1] 
 "A classification model can be either generative or discriminative.
 - generative: based on probability distribution
@@ -113,6 +128,74 @@ Kernanforderungen an das System:
     nicht explizit im Text steht. Beispiel: Wenn ein User schreibt 
     „Ich brauchte eine Rückerstattung“, kann das System auf ein negatives 
     Erlebnis schließen.
+
+
+[4]
+- Sentimentanalyse (auch Stimmungsanalyse) ist der Prozess zur Ermittlung von 
+Meinungen, Urteilen oder Emotionen hinter einem Text.
+- Das Ziel ist es, den Ausdruck von Sprache dahingehend zu bewerten, in welchem 
+Ausmaß er positiv, negativ oder neutral ist.
+- Häufig erfolgt die Bewertung über einen Sentiment Score, beispielsweise auf 
+einer Skala von -1 (negativ) bis +1 (positiv)
+
+HERAUSFORDERUNGEN
+- Kontextabhängigkeit: Ein Wort kann je nach Produkt positiv oder negativ sein 
+(z. B. ein „dünner“ Laptop ist positiv, „dünne“ Wände im Hotel sind negativ)
+- Sprachliche Nuancen: Sarkasmus, Ironie, Redewendungen und grammatikalische 
+Komplexität sind für KI-Tools schwer zu interpretieren.
+- Subjektivität: Was eine Person als positiv empfindet, kann für eine andere 
+neutral wirken.
+
+
+[5]
+- Das Ziel ist die automatische Auswertung von Texten, um Aussagen als positiv, 
+neutral oder negativ einzustufen und die dahinterliegende Haltung oder 
+Stimmung zu erkennen.
+- Die Analyse kann auf drei Ebenen erfolgen: einzelne Ausdrücke, Sätze oder 
+das gesamte Dokument
+
+VORTEIL VON ML GEGENÜBER REGELBASIERT
+Es erkennt übergeordnete Sinnzusammenhänge, ist fehlertolerant gegenüber 
+Tippfehlern und kann unbekannte Ausdrücke anhand der Tonalität gewichteter 
+Sentiments einschätzen
+
+SENTIMENTANALYSE - ANWENDUNGEN
+- Produktverbesserung: Durch die Analyse lässt sich messen, wie Veränderungen 
+an Produkten wahrgenommen werden, um Fehler schnell zu beheben.
+- Support-Priorisierung: Stark negative Rezensionen können automatisch erkannt 
+und nach Dringlichkeit sortiert werden, um kritische Anfragen schneller zu 
+bearbeiten.
+- Marktforschung: Identifikation von Stärken und Schwächen im Vergleich zur 
+Konkurrenz.
+
+
+[6]
+- Sentimentanalyse: Die Untersuchung des emotionalen Tons eines Textes, wobei meist 
+die Valenz oder Polarität (wie positiv oder negativ eine Stimmung ist) bestimmt wird
+
+ARTEN
+- Binär: Einteilung in zwei Klassen wie positiv oder negativ.
+- Abgestuft: Verwendung einer Likert-Skala (z. B. SST-5 mit fünf Stufen von sehr 
+positiv bis sehr negativ).
+- Kontinuierlich: Messung über Zahlenwerte, z. B. von -1 (stark negativ) bis 1 
+(stark positiv).
+- Subjektiv vs. Objektiv: Unterscheidung, ob ein Text eine persönliche Haltung 
+ausdrückt oder rein sachlich ist
+
+METHODISCHE ANSÄTZE
+- Lexikonbasiert (z. B. VADER, Pattern): Nutzt Wortlisten mit festen Sentimentwerten. 
+Diese Methoden sind schnell und präzise bei Einzelbegriffen, erfordern aber oft 
+manuelle Erstellung.
+- Machine Learning (z. B. Naive Bayes): Ein Klassifikator wird mit gelabelten 
+Datensätzen (z. B. Filmkritiken) trainiert. Er ist schnell, kann aber bei komplexen 
+Texten mit Negationen (Verneinungen) Schwierigkeiten haben.
+- Große Sprachmodelle (LLMs / Transformers): Diese können komplexe Beziehungen und 
+Kontext im Text modellieren, sind jedoch in der Verarbeitung langsamer
+
+WICHTIGE PYTHON-TOOLS
+- VADER (aus NLTK): lexikonbasiert, spezialisiert auf soziale Medien und Kurztexte.
+    --> ABER SELBST TRAINIEREN, EIGENES MODELL ERSTELLEN!
+- TextBlob: lexikonbasiert, bietet sowohl lexikonbasierte als auch Naive-Bayes-Ansätze.
 
 
 [keine Quelle]
