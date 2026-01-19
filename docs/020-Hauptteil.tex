@@ -1,31 +1,40 @@
-\chapter{Datenbeschreibung}
+\chapter{Explorative Datenanalyse}
 - irgendwas ...
 ----------------------------------------------
-\section{Quelle}
+\section{Quelle/Herkunft}
 - Amazon Reviews’23 Datensatz (McAuley Lab)
 - Allgemeine Beschreibung des Datensatzes
-- Wahl des 0-core-Splits (oder 5-core?) und Begründung
-
-\section{Ausgewählte Produktkategorien}
-- Beschreibung der verwendeten Kategorien (mind. drei)
-- Begründung der Auswahl
 
 \section{Datenumfang und Aufteilung}
-- Anzahl der Rezensionen pro Kategorie
-- Aufteilung in Trainings- und Testsatz
+- Kategorien: allbeauty, handmadeProducts und healthAndPersonalCare, da sie von der
+Größe ähnlich sind (knapp 300MB) und unterschiedlich
+AllBeauty - 701.528
+HandmadeProducts - 664.162
+HealthAndPersonalHealth - 494.121
+- es gibt 10 verschiedene Spalten, hauptsächlich type object, aber auch DateTime
+und 2 int64 für Rating und HelpfulVote, und bool bei verified\_purchase
+- zum Glück gibts bei keiner Spalte fehlende Werte
 
 \section{Verteilung der Bewertungen}
-- Häufigkeit der Ratings (1–5 Sterne)
-- Vergleich von Trainings- und Testsatz
+- AllBeauty mean bei 3.96
+- HandmadeProducts mean bei 4.49
+- HealthAndPersonalHealth mean bei 3.99
+also sehr positiver Datensatz
+- std ist bei allen auch nicht groß liegt bei 1.4 ungefähr
+- die meisten Ratings sind 5, also muss man die später ausgleichen
+- wichtig zu erwähnen ist, dass bei handmade bei 5\% reviews der Einkauf nicht
+verifiziert wurde, bei AllBeauty und Healthcare sind es sogar 10\%
 
 
 
 \chapter{Datenvorverarbeitung}
+!!Daten reduzieren (so dass Rating gleich ist)
 - irgendwas über Preprocessing
 ----------------------------------------------
 \section{Trennung von Eingabe- und Ausgabedaten}
 - Definition der Eingabedaten (Titel + Rezensionstext)
 - Definition der Zielvariable (numerische Bewertung)
+- Aufteilung in Trainings- und Testsatz
 
 \section{Textaufbereitung}
 - Zusammenführung von Titel und Text
