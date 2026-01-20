@@ -21,23 +21,27 @@ und 2 int64 für Rating und HelpfulVote, und bool bei verified\_purchase
 - HealthAndPersonalHealth mean bei 3.99
 also sehr positiver Datensatz
 - std ist bei allen auch nicht groß liegt bei 1.4 ungefähr
-- die meisten Ratings sind 5, also muss man die später ausgleichen
+- die meisten Ratings sind 5, also später lieber F1-Score als Accuracy, da Klassen
+nicht ausgeglichen
 - wichtig zu erwähnen ist, dass bei handmade bei 5\% reviews der Einkauf nicht
 verifiziert wurde, bei AllBeauty und Healthcare sind es sogar 10\%
 - die Textlänge ist bis auf wenige Ausreißer bei AllBeauty und HealthCare gleich,
 Handmade hat etwas kürze
 - Bei Länge von Bewertungen, sieht man das min = 0 ist. D.h. obwohl es keine 
-null-values gab, gibt es trotzdem Bewertungen ohne Text, die man bei der
+missing-values gab, gibt es trotzdem Bewertungen ohne Text, die man bei der
 Vorverarbeitung entfernen muss
 
 
 
 \chapter{Datenvorverarbeitung}
-!!Daten reduzieren (so dass Rating gleich ist)
 - irgendwas über Preprocessing
 ----------------------------------------------
+\section{Data Cleaning}
+- alle reviews löschen die nicht verifizierten Kauf haben
+- alle mit Textlänge < 10 löschen
+- alle spalten löschen die unnötig sind (es bleiben nur: rating, title, text)
+
 \section{Trennung von Eingabe- und Ausgabedaten}
-- Definition der Eingabedaten (Titel + Rezensionstext)
 - Definition der Zielvariable (numerische Bewertung)
 - Aufteilung in Trainings- und Testsatz
 
