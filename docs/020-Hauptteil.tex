@@ -21,8 +21,8 @@ und 2 int64 für Rating und HelpfulVote, und bool bei verified\_purchase
 - HealthAndPersonalHealth mean bei 3.99
 also sehr positiver Datensatz
 - std ist bei allen auch nicht groß liegt bei 1.4 ungefähr
-- die meisten Ratings sind 5, also später lieber F1-Score als Accuracy, da Klassen
-nicht ausgeglichen
+- die meisten Ratings sind 5, also später die Klassen ausgleichen, und
+Datenmenge sowieso reduzieren
 - wichtig zu erwähnen ist, dass bei handmade bei 5\% reviews der Einkauf nicht
 verifiziert wurde, bei AllBeauty und Healthcare sind es sogar 10\%
 - die Textlänge ist bis auf wenige Ausreißer bei AllBeauty und HealthCare gleich,
@@ -37,24 +37,33 @@ Vorverarbeitung entfernen muss
 - irgendwas über Preprocessing
 ----------------------------------------------
 \section{Data Cleaning}
+- Datenmenge reduzieren und die Verteilung von Rating ausgleichen
 - alle reviews löschen die nicht verifizierten Kauf haben
 - alle mit Textlänge < 10 löschen
 - alle spalten löschen die unnötig sind (es bleiben nur: rating, title, text)
 
-\section{Trennung von Eingabe- und Ausgabedaten}
-- Definition der Zielvariable (numerische Bewertung)
-- Aufteilung in Trainings- und Testsatz
-
 \section{Textaufbereitung}
 - Zusammenführung von Titel und Text
+- lowercasing
 - Tokenisierung
 - Entfernen von Stoppwörtern
-- Umgang mit Sonderzeichen und Groß-/Kleinschreibung
+- Umgang mit Sonderzeichen (Punctuation)
+- Lemmatization (langsamer, aber genauer als Stemming und das ist hier wichtiger)
 
 \section{Numerische Repräsentation}
 - Verwendung von TF-IDF
-- Wahl der n-Gramm-Länge (z. B. Unigramme)
+    da viele Wörter redundant (product, use, one, etc.), hebt wichtige wörter 
+    hervor (excellent, terrible, perfect)
+    BoW zählt nur Wörter und beachtet keine Relevanz
 - Begründung der Feature-Darstellung
+
+\section{Trennung von Eingabe- und Ausgabedaten}
+- Definition der Zielvariable (numerische Bewertung)
+    EINGABE (Features, X): Text = Titel + Beschreibung
+    AUSGABE (Target, y):   Rating = 1, 2, 3, 4, 5 Sterne
+    das vielleicht erst beim Modell und als Funktion! (text als eingabe und dann 
+    die gleiche Reihenfolge wie bei Preprocessing)
+- Aufteilung in Trainings- und Testsatz
 
 
 
