@@ -49,13 +49,20 @@ Vorverarbeitung entfernen muss
 - Entfernen von Stoppwörtern
 - Umgang mit Sonderzeichen (Punctuation)
 - Lemmatization (langsamer, aber genauer als Stemming und das ist hier wichtiger)
+- lemmatisierung ist bei default nur auf Nomen eingestellt, deswegen müssen wir 
+zuerst ein POS-Tagging machen um jedes Wort mit der Wortart zu taggen.
+Als erstens wird pos\_tag einen Tag zuweisen, danach muss man den - abhängig von
+der Ausgabe - die richtige Kategorie an lemmatizer übergeben
+
 
 \section{Numerische Repräsentation}
+- zuerst alle 3 DF zusammenführen
 - Verwendung von TF-IDF
     da viele Wörter redundant (product, use, one, etc.), hebt wichtige wörter 
     hervor (excellent, terrible, perfect)
     BoW zählt nur Wörter und beachtet keine Relevanz
-- Begründung der Feature-Darstellung
+- n\_gram auf 1,2 damit negationen erkannt werden
+- einen kompletten dataframe fitten und transformieren
 
 \section{Trennung von Eingabe- und Ausgabedaten}
 - Definition der Zielvariable (numerische Bewertung)

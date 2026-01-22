@@ -79,10 +79,6 @@ Berechnung zerstören würde
 - Binarisierung: Bei der Sentimentanalyse ist es oft wichtiger, OB ein Wort 
 vorkommt, als wie oft. Hierbei werden Wortzählungen auf 1 begrenzt, was die 
 Performance oft verbessert
-- Umgang mit Negation: Eine einfache, effektive Methode ist das Voranstellen 
-eines Präfixes (z. B. NOT_) vor jedes Wort nach einer Verneinung 
-(wie „nicht“, „kein“) bis zum nächsten Satzzeichen 
-(z. B. „didn’t like this movie , but I" -> "didn’t NOT_like NOT_this NOT_movie , but I")
 
 Signifikanztests: Um zu beweisen, dass ein Modell wirklich besser ist als ein 
 anderes, sollten statistische Tests wie der Bootstrap-Test durchgeführt werden
