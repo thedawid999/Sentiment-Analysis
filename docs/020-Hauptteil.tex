@@ -48,6 +48,7 @@ Vorverarbeitung entfernen muss
 - Tokenisierung
 - Entfernen von Stoppwörtern
 - Umgang mit Sonderzeichen (Punctuation)
+- Entfernung von Emojis
 - Lemmatization (langsamer, aber genauer als Stemming und das ist hier wichtiger)
 - lemmatisierung ist bei default nur auf Nomen eingestellt, deswegen müssen wir 
 zuerst ein POS-Tagging machen um jedes Wort mit der Wortart zu taggen.
@@ -56,13 +57,21 @@ der Ausgabe - die richtige Kategorie an lemmatizer übergeben
 
 
 \section{Numerische Repräsentation}
-- zuerst alle 3 DF zusammenführen
+- es wird für jedes df eine spalte category erstellt mit value (allbeauty, handmade
+oder healthcare) um es dann nachdem zusammenführen besser zu unterscheiden. Dies hilft
+bei einer gleichmäßigen Aufteilung in Train und Test.
+- danach alle 3 DF zusammenführen
+- hier wird es gesplittet. Train 0.8, Test 0.2, gleichmäßig nach category 
+mithilfe von stratify-argument
 - Verwendung von TF-IDF
     da viele Wörter redundant (product, use, one, etc.), hebt wichtige wörter 
     hervor (excellent, terrible, perfect)
     BoW zählt nur Wörter und beachtet keine Relevanz
-- n\_gram auf 1,2 damit negationen erkannt werden
-- einen kompletten dataframe fitten und transformieren
+- n\_gram auf 1,5 damit negationen erkannt werden, minDF auf 5 (Wort muss mind. in
+5 Rezensionen vorkommen sonst unwichtig), maxDF auf 0.95 (wenn ein Wort mehr als
+in 95\% der Rezensionen vorkommt dann unnötig)
+- traindaten fitten und transformieren, testdaten nur transformieren
+- alle daten und tfidf als datei speichern
 
 \section{Trennung von Eingabe- und Ausgabedaten}
 - Definition der Zielvariable (numerische Bewertung)
@@ -70,7 +79,6 @@ der Ausgabe - die richtige Kategorie an lemmatizer übergeben
     AUSGABE (Target, y):   Rating = 1, 2, 3, 4, 5 Sterne
     das vielleicht erst beim Modell und als Funktion! (text als eingabe und dann 
     die gleiche Reihenfolge wie bei Preprocessing)
-- Aufteilung in Trainings- und Testsatz
 
 
 
@@ -79,7 +87,7 @@ der Ausgabe - die richtige Kategorie an lemmatizer übergeben
 - Supervised Learning
 - Mehrklassen-Klassifikation (5 Klassen)
 ----------------------------------------------
-\section{Lineare Regression}
+\section{Logistic Regression}
 - [1] discriminative
 - [1] kategorien selbst bestimmen
 - Beschreibung des gewählten Klassifikators
@@ -111,26 +119,32 @@ for the task.
 
 \section{Trainingsprozess}
 - Training auf dem Trainingsdatensatz
-- Keine separate Validierungsmenge
 - Begründung des Vorgehens
+- beim Training der beiden Modelle wurde zusätzlich eine Pipeline erstellt um
+das beste NGram für Vektorisierung zu finden. Dabei wurde der F1-Score analysiert
+- es wurden (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6) untersucht
+- dabei wurde auch die Trainingszeit gemessen
+- Ergebnisse
+- größter Sprung bei beiden von (1,2) auf (1,3). F1Score zwischen (1,5) und (1,6)
+ist nicht groß, aber die Trainingsdauer ist fast 1.5x länger. Daher wird (1,5) gewählt
 
 
 
 \chapter{Evaluation und Ergebnisse}
 - irgendwas...
+- accuracy bei beiden ungefähr 55\%, scheint wenig zu sein, aber es ist normal 
+bei multiclass (60\%), bei binär wäre 80-90\%
+\href{https://www.researchgate.net/publication/335529527_Multi-class_sentiment_analysis_on_twitter_Classification_performance_and_challenges}
 ----------------------------------------------
 \section{Evaluationsmetriken}
-- Accuracy
+- Accuracy, precision, ...
 - Confusion Matrix
-- Begründung der Metrikauswahl
+- Begründung der Metrikauswahl (Sentimentanalyse ist ein typisches 
+Klassifizierungsproblem)
 
 \section{Gesamtergebnisse}
 - Accuracy auf dem Testsatz
 - Darstellung und Interpretation der Confusion Matrix
-
-\section{Ergebnisse nach Produktkategorien (optional)}
-- Vergleich der Modellleistung zwischen Kategorien
-- Kurze Analyse der Unterschiede
 
 \section{Ergebnisse von zwei Algorithmen (optional)}
 - Vergleich der Modellleistung zwischen Algorithmen (z.B. Naive Bayes und NN)
