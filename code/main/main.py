@@ -14,6 +14,7 @@ nltk.download("wordnet")
 nltk.download("punkt_tab")
 nltk.download("stopwords")
 
+# remove negations from stopwords
 STOPWORDS = set(stopwords.words("english"))
 NEGATIONS = {"not", "no", "nor", "n't", "never", "hardly", "barely"}
 STOPWORDS = STOPWORDS - NEGATIONS
@@ -30,11 +31,13 @@ emoji_pattern = re.compile(
     flags=re.UNICODE
 )
 
+# removes emojis from text
 def remove_emojis(token_list):
     if isinstance(token_list, list):
         return [emoji_pattern.sub("", token) for token in token_list]
     return token_list
 
+# assign a POS-Tag to each word
 def get_wordnet_pos(tag):
     if tag.startswith("J"):
         return wordnet.ADJ
@@ -50,6 +53,8 @@ def my_tokenizer(text):
     return text
 
 def preprocess(title, review):
+    tfidf = joblib.load("results/tfidf_vectorizer.joblib")
+
     text = title + " " + review
     # 1. lowercase
     text = text.lower()
@@ -72,9 +77,10 @@ def preprocess(title, review):
         lemmatizer.lemmatize(word, get_wordnet_pos(pos))
         for word, pos in pos_tags
     ]
-
-    tfidf = joblib.load("results/tfidf_vectorizer.joblib")
-    data_vec = tfidf.transform(tokens)
+    
+    text_preprocessed = " ".join(tokens)
+    print(f"text_preprocessed: {text_preprocessed}")
+    data_vec = tfidf.transform([text_preprocessed])
 
     return data_vec
 
@@ -88,14 +94,18 @@ choice = input("Your choice: ").strip()
 if choice == "1":
     model = joblib.load("results/logistic_regression.joblib")
 elif choice == "2":
-    model = joblib.load("resuluts/multinomial_nb.joblib")
+    model = joblib.load("results/multinomial_nb.joblib")
 else:
     raise ValueError("Invalid choice")
 
 title = input("Enter review title: ")
 review = input("Enter review text: ")
 
+# preprocess data and predict rating
 data_preprocessed = preprocess(title, review)
 prediction = model.predict(data_preprocessed)[0]
+
+print(f"Classes: {model.classes_}")
+print(f"Class probability: {model.predict_proba(data_preprocessed)}")
 
 print(f"\nPredicted sentiment: {prediction}")
