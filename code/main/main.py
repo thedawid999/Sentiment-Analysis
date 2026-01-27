@@ -79,7 +79,7 @@ def preprocess(title, review):
     ]
     
     text_preprocessed = " ".join(tokens)
-    print(f"text_preprocessed: {text_preprocessed}")
+    print(f"\nPreprocessed text:\n{text_preprocessed}\n")
     data_vec = tfidf.transform([text_preprocessed])
 
     return data_vec
@@ -103,9 +103,10 @@ review = input("Enter review text: ")
 
 # preprocess data and predict rating
 data_preprocessed = preprocess(title, review)
-prediction = model.predict(data_preprocessed)[0]
+pred = model.predict(data_preprocessed)[0]
+pred_proba = model.predict_proba(data_preprocessed)
 
-print(f"Classes: {model.classes_}")
-print(f"Class probability: {model.predict_proba(data_preprocessed)}")
+for i in range(5):
+    print(f"rating: {model.classes_[i]} ---> probability: {pred_proba[0][i]:.3f}")
 
-print(f"\nPredicted sentiment: {prediction}")
+print(f"\nPredicted sentiment: {pred}")
