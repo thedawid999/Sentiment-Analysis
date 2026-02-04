@@ -1,13 +1,31 @@
 \chapter{Explorative Datenanalyse}
-- irgendwas ...
-----------------------------------------------
-\section{Quelle/Herkunft}
-- Amazon Reviews’23 Datensatz (McAuley Lab)
-- Allgemeine Beschreibung des Datensatzes
+hier wird der datensatz genauer analysiert
 
-\section{Datenumfang und Aufteilung}
+\section{Datensatz}
+[2]
+Der Amazon Reviews’23-Datensatz ist eine groß angelegte Sammlung von 
+Amazon-Produktrezensionen, die im Jahr 2023 vom McAuley Lab veröffentlicht wurde. Er 
+dient als umfassende Ressource für Forschung in den Bereichen Textanalyse, 
+Empfehlungs- und Retrieval-Systeme sowie maschinelles Lernen.
+\\
+Der Datensatz umfasst über 571 Millionen Nutzerrezensionen, die zwischen Mai 1996 
+und September 2023 gesammelt wurden, und enthält Informationen zu mehr als 48 
+Millionen Produkten aus über 30 Produktkategorien sowie zu mehr als 54 Millionen 
+Nutzer-IDs. Damit ist die Version von 2023 deutlich größer und umfassender als 
+frühere Amazon-Review-Datensätze.
+\\
+Der Datensatz besteht aus verschiedenen miteinander verknüpften Komponenten:
+- User Reviews: Enthält die Bewertungen von Nutzerinnen und Nutzern, einschließlich 
+Sternebewertungen (rating), Titel, Textkörper (text), hilfreiche Stimmen, 
+Produkt-IDs (asin, parent\_asin), verifizierte Käufe und Zeitstempel.
+- Item Metadata: Produktinformationen wie Beschreibungen, Preisangaben und weitere 
+Attribute, die den Artikeln zugeordnet sind.
+- Links: Beziehungen zwischen Usern und Produkten 
+
+\section{Gewählte Kategorien}
 - Kategorien: allbeauty, handmadeProducts und healthAndPersonalCare, da sie von der
-Größe ähnlich sind (knapp 300MB) und unterschiedlich
+Größe ähnlich sind (knapp 300MB) und semantisch unterschiedlich.
+Anzahl Rezensionen: 
 AllBeauty - 701.528
 HandmadeProducts - 664.162
 HealthAndPersonalHealth - 494.121
@@ -19,7 +37,7 @@ und 2 int64 für Rating und HelpfulVote, und bool bei verified\_purchase
 - AllBeauty mean bei 3.96
 - HandmadeProducts mean bei 4.49
 - HealthAndPersonalHealth mean bei 3.99
-also sehr positiver Datensatz
+also sehr positiver Datensatz, jedoch nicht stark einseitig
 - std ist bei allen auch nicht groß liegt bei 1.4 ungefähr
 - die meisten Ratings sind 5, also später die Klassen ausgleichen, und
 Datenmenge sowieso reduzieren
@@ -31,7 +49,7 @@ Handmade hat etwas kürze
 missing-values gab, gibt es trotzdem Bewertungen ohne Text, die man bei der
 Vorverarbeitung entfernen muss
 
-
+BILDER VIELLEICHT IMPORTIEREN VON EDA?
 
 \chapter{Datenvorverarbeitung}
 - irgendwas über Preprocessing

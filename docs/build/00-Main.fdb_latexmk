@@ -1,29 +1,29 @@
 # Fdb version 4
-["biber build/00-Main"] 0 "build/00-Main.bcf" "build/00-Main.bbl" "build/00-Main" 1770221107.00818 -1
+["biber build/00-Main"] 0 "build/00-Main.bcf" "build/00-Main.bbl" "build/00-Main" 1770222111.87897 -1
   "biblio.bib" 1765212772 4838 59b655688f601160a69a6192f3c376c0 ""
-  "build/00-Main.bcf" 1770221106 133939 792850e58a06dd323e7a3fbb3a44c985 "pdflatex"
+  "build/00-Main.bcf" 1770222111 133939 792850e58a06dd323e7a3fbb3a44c985 "pdflatex"
   (generated)
   "build/00-Main.bbl"
   "build/00-Main.blg"
   (rewritten before read)
-["pdflatex"] 1770221104.92332 "c:/MY_DATA/IU/s4/Projekt NLP/sentiment_analysis/docs/00-Main.tex" "build/00-Main.pdf" "00-Main" 1770221107.00908 0
+["pdflatex"] 1770222109.75742 "c:/MY_DATA/IU/s4/Projekt NLP/sentiment_analysis/docs/00-Main.tex" "build/00-Main.pdf" "00-Main" 1770222111.88008 0
   "00-Main.tex" 1765212540 3780 a4dba21f5929187ae7beac5a2128b7c2 ""
   "001-Titlepage.tex" 1768494574 1229 cf6e7d60179feabc54c19d8711a1def6 ""
   "005-Abbreviations.tex" 1765380260 822 46b49d70cac2b18f4440c52844249522 ""
   "010-Einleitung.tex" 1770221104 3033 bf2bedb74de142c773fa61bb933bc673 ""
-  "020-Hauptteil.tex" 1770217375 8971 ae950259b687b0cc20ae8e3d48c46912 ""
+  "020-Hauptteil.tex" 1770222109 10137 2f3a85d579a00f11cb5c46ffe791e73d ""
   "030-Schluss.tex" 1770217466 780 4f71dfb4894af42b77051986536df65e ""
-  "build/00-Main.aux" 1770221106 8471 16620f8cd6c2784fbca3397c4e15af4e "pdflatex"
+  "build/00-Main.aux" 1770222111 8344 6ceda14fc242cc03e5c232aca9f07c53 "pdflatex"
   "build/00-Main.bbl" 1768806306 486 76d65a242ec496c9b4361af646ff12cb "biber build/00-Main"
-  "build/00-Main.lof" 1770221106 275 66516b7ab6445f3c9075a6f45ad561dd "pdflatex"
-  "build/00-Main.lot" 1770221106 275 66516b7ab6445f3c9075a6f45ad561dd "pdflatex"
-  "build/00-Main.run.xml" 1770221106 2440 d3bb4d3fe8c5481f1119a1f9de0f6fb4 "pdflatex"
-  "build/00-Main.toc" 1770221106 2061 1be696d227b0cb1aa6eeed4db1e3b5d2 "pdflatex"
-  "build/001-Titlepage.aux" 1770221106 4281 e998bb0e7eac9742d910a9e3398f4e87 "pdflatex"
-  "build/005-Abbreviations.aux" 1770221106 5076 c4dc422635d1c46789e7ecbc64b9aa75 "pdflatex"
-  "build/010-Einleitung.aux" 1770221106 4765 2472ee4d3257bf2a46871523a3c5f533 "pdflatex"
-  "build/020-Hauptteil.aux" 1770221106 6629 27667dedee1cb5b863fcfad63591fcab "pdflatex"
-  "build/030-Schluss.aux" 1770221106 4416 f5b9f5cc5694fd00c5cf1b84820b43ef "pdflatex"
+  "build/00-Main.lof" 1770222111 275 66516b7ab6445f3c9075a6f45ad561dd "pdflatex"
+  "build/00-Main.lot" 1770222111 275 66516b7ab6445f3c9075a6f45ad561dd "pdflatex"
+  "build/00-Main.run.xml" 1770222111 2440 d3bb4d3fe8c5481f1119a1f9de0f6fb4 "pdflatex"
+  "build/00-Main.toc" 1770222111 2049 a08be9c08489ae6168ef8695a1acf3ab "pdflatex"
+  "build/001-Titlepage.aux" 1770222111 4281 e998bb0e7eac9742d910a9e3398f4e87 "pdflatex"
+  "build/005-Abbreviations.aux" 1770222111 5076 c4dc422635d1c46789e7ecbc64b9aa75 "pdflatex"
+  "build/010-Einleitung.aux" 1770222111 4765 2472ee4d3257bf2a46871523a3c5f533 "pdflatex"
+  "build/020-Hauptteil.aux" 1770222111 6617 e03b656b98453bda87dffc3447e69399 "pdflatex"
+  "build/030-Schluss.aux" 1770222111 4416 f5b9f5cc5694fd00c5cf1b84820b43ef "pdflatex"
   "c:/MY_DATA/IU/s4/Projekt NLP/sentiment_analysis/docs/00-Main.tex" 1765212540 3780 a4dba21f5929187ae7beac5a2128b7c2 ""
   "c:/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1763199079 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "c:/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1763199894 3524 cb3e574dea2d1052e39280babc910dc8 ""
