@@ -1,16 +1,47 @@
 \chapter{Einleitung}
-- irgendwas...
------------------------------------------------
+Online-Produktrezensionen sind eine zentrale Informationsquelle im E-Commerce und 
+beeinflussen maßgeblich Kaufentscheidungen. Sie enthalten wertvolle Rückmeldungen 
+zu Produktqualität und Nutzererfahrungen und bilden eine umfangreiche Datenbasis 
+für Unternehmen. Um diese Informationen systematisch auszuwerten, wird oft eine
+Sentimentanalyse verwendet. Dieses Verfahren extrahiert Meinungen und Emotionen
+aus Texten und klassifiert sie hinsichtlich ihrer Polarität.
+Die Bewertung erfolgt häufig über Klassen oder numerische 
+Skalen [4].
+
 \section{Problemstellung}
-- Bedeutung von Online-Produktrezensionen
-- Herausforderung der manuellen Auswertung
-- Relevanz automatischer Sentimentanalyse
+Online-Rezensionen liegen in großer Anzahl vor und sind aufgrund ihrer 
+Sprachvielfalt und subjektiven Ausdrucksweise nur schwer manuell auswertbar. Eine 
+systematische Analyse ist zeitaufwendig und nicht sinnvoll skalierbar.
+Automatische Sentimentanalyse-Systeme müssen mehrdeutige Formulierungen, implizite 
+Bewertungen und unterschiedliche sprachliche Ausdrücke korrekt verarbeiten. Dabei 
+sind eine eindeutige Repräsentation von Meinungen, die Zusammenführung semantisch 
+ähnlicher Aussagen sowie die Ableitung nicht explizit genannter Informationen 
+erforderlich [3]. Zudem sind fein abgestufte Bewertungen, wie Sternebewertungen, 
+oft aussagekräftiger als binäre Klassifikationen [6].
 
 \section{Zielsetzung}
-- Entwicklung eines Textklassifikationssystems
-- Vorhersage numerischer Bewertungen (1–5 Sterne)
-- Fokus auf Mehrklassen-Klassifikation
+Ziel dieser Arbeit ist die Entwicklung eines automatischen Textklassifikationssystems 
+zur Sentimentanalyse von Online-Produktrezensionen. Das System soll in der Lage sein, 
+Textbewertungen einer numerischen Skala von 1 bis 5 Sternen zuzuordnen und damit eine 
+Mehrklassen-Klassifikation durchzuführen. Der Fokus liegt auf der Nutzung 
+maschineller Lernverfahren, da diese im Vergleich zu regelbasierten Ansätzen besser 
+mit sprachlicher Vielfalt, Tippfehlern und unbekannten Ausdrücken umgehen können und 
+übergeordnete Sinnzusammenhänge erkennen [6].
+Zu diesem Zweck werden zwei etablierte Klassifikationsmodelle eingesetzt: 
+logistische Regression und Multinomial Naive Bayes. Ziel ist es, die 
+Leistungsfähigkeit dieser beiden Ansätze zu vergleichen und ihre 
+Eignung für die Vorhersage fein abgestufter Bewertungen zu bewerten.
 
 \section{Vorgehensweise}
-- Überblick über Daten, Methodik und Evaluation
-- Kurze Beschreibung der einzelnen Kapitel
+Zu Beginn der Arbeit erfolgt eine explorative Datenanalyse, um einen 
+Überblick über den Datensatz, dessen Struktur sowie zentrale Eigenschaften zu 
+gewinnen. Darauf aufbauend wird die Datenvorverarbeitung beschrieben, die unter 
+anderem Schritte zur Textbereinigung und Merkmalsextraktion umfasst.
+Anschließend werden die eingesetzten Klassifikationsverfahren vorgestellt und 
+methodisch eingeordnet. Im Rahmen des Modelltrainings werden eine logistische 
+Regression sowie ein Multinomial-Naive-Bayes-Klassifikator implementiert und 
+trainiert.
+Die Leistungsfähigkeit der Modelle wird mithilfe geeigneter Evaluationsmetriken 
+bewertet und miteinander verglichen. Abschließend werden die Ergebnisse 
+diskutiert und im Hinblick auf die Stärken und Schwächen der jeweiligen Ansätze 
+analysiert.

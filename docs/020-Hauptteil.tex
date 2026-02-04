@@ -86,18 +86,59 @@ in 95\% der Rezensionen vorkommt dann unnötig)
 - Problemformulierung als Klassifikationsaufgabe
 - Supervised Learning
 - Mehrklassen-Klassifikation (5 Klassen)
+[1] 
+"A classification model can be either generative or discriminative.
+- generative: based on probability distribution
+- discriminative: learns borders between classes"
 ----------------------------------------------
-\section{Logistic Regression}
+\section{Logistische Regression}
 - [1] discriminative
 - [1] kategorien selbst bestimmen
 - Beschreibung des gewählten Klassifikators
 - Begründung der Eignung für Textklassifikation
+[1] 
+"Logistic Regression ist discriminative. 
 
-\section{Naive Bayes}
+Merkmale müssen nicht kategorial sein. Man kann BoW nutzen oder was anderes.
+Hier wird jedes Feature mit einem Gewicht multipliziert und anschließend
+ein Bias addiert. Die Klassenwahrscheinlichkeit enthält man durch 
+[Normalisierung mit Softmax (Aktivierungsfunktion für multinomiale LR). Dies 
+ergibt einen K-dimensionalen Vektor (Wahrscheinlichkeitsverteilung für jede 
+Klasse K)] [3, Chapter 4]
+Keine starken Annahmen wie bei Naive Bayes.
+einfach, keine Unabhängigkeitsannahmen, aber nicht so schnell"
+
+\section{Multinomial Naive Bayes}
 - [1] generative 
 - [1] rechnet mit wahrscheinlichkeiten
 - Beschreibung des gewählten Klassifikators
 - Begründung der Eignung für Textklassifikation
+[1] 
+"Naive Bayes ist generative. Die Annahmen sind:
+- Wortfolge ist egal
+- Merkmale (also die Wörter) sind unabhängig voneinander wenn die Klasse
+bekannt ist {Das Auftreten von „good“ist unabhängig vom Auftreten von „very“,
+wenn wir wissen, dass der Text positiv ist.} 
+In Wirklichkeit ist es nicht immer der Fall, deswegen NAIVE
+    
+Daten müssen kategorial sein, also diskret. Meistens ist die Repräsentation
+ein BoW-Vektor, ale es sind Zählwerte von Wörtern
+    
+einfach, schnell, aber unrealistische Unabhängigkeitsannahmen"
+
+[3, Chapter B]
+NAIVE BAYES 
+- Laplace-Glättung (Add-one smoothing): um zu verhindern, dass die Wahrscheinlichkeit
+für ein Wort, das nicht im Trainingsset vorkam, Null wird, was die gesamte 
+Berechnung zerstören würde
+- Binarisierung: Bei der Sentimentanalyse ist es oft wichtiger, OB ein Wort 
+vorkommt, als wie oft. Hierbei werden Wortzählungen auf 1 begrenzt, was die 
+Performance oft verbessert
+
+Sentiment-Lexika: Wenn wenig Trainingsdaten vorhanden sind, können 
+vordefinierte Listen positiver und negativer Wörter (z. B. MPQA) als Merkmale 
+genutzt werden.
+
 
 VERGLEICH 
 - Both methods are simple; Naive Bayes is the simplest one.

@@ -10,17 +10,15 @@
 [4] https://www.qualtrics.com/de/erlebnismanagement/marktforschung/sentiment-analysis/
 [5] https://mindsquare.de/knowhow/sentimentanalyse/
 [6] https://blog.jetbrains.com/de/pycharm/2025/06/einfuehrung-in-die-sentimentanalyse-mit-python/
+[im Hauptteil]https://www.researchgate.net/publication/335529527_Multi-class_sentiment_analysis_on_twitter_Classification_performance_and_challenges
 
 
-[2]
-...
-
-[1] 
+#[1] 
 "A classification model can be either generative or discriminative.
 - generative: based on probability distribution
 - discriminative: learns borders between classes"
 
-[1] 
+#[1] 
 "Naive Bayes ist generative. Die Annahmen sind:
 - Wortfolge ist egal
 - Merkmale (also die Wörter) sind unabhängig voneinander wenn die Klasse
@@ -33,7 +31,7 @@ ein BoW-Vektor, ale es sind Zählwerte von Wörtern
     
 einfach, schnell, aber unrealistische Unabhängigkeitsannahmen"
 
-[1] 
+#[1] 
 "Logistic Regression ist discriminative. 
 
 Merkmale müssen nicht kategorial sein. Man kann BoW nutzen oder was anderes.
@@ -54,24 +52,11 @@ Typische Featuers sind
 - Vorhandensein von Negationen (z.B. "no")
 - Satzzeichen (z.B. Ausrufezeichen) und Textlänge
 
-Cross-Entropy-Loss: Verlustfunktion, Abstand zwischen vorhergesagten
-    Wahrscheinlichkeiten und dem tatsächlichen Label, Ziel: Minimierung
-Stochastisches Gradient Descent: Verfahren, um die Gewichte schrittweise so
-    anzupassen, dass das Minimum der Verlustfunktion erreicht wird
-Regularisierung: Um Overfitting zu vermeiden werden große Gewichte durch
-    einen Strafterm in der Verlustfunktion bestraft.
-
 Bewertungsmetriken: Precision, Recall, F1-Score
 -> Accuracy ist bei ungleich verteilten Daten kein guter Indikator
-
-
-[3, Chapter 5]
-Embeddings: ein allgemeiner Begriff für Vektordarstellungen von Wörtern, die
-    semantische Ähnlichkeiten kodieren. Ähnliche Wörter liegen näher zueinander
-    Hauptsächlich für neuronale Netze 
     
 
-[3, Chapter B]
+#[3, Chapter B]
 NAIVE BAYES 
 - Laplace-Glättung (Add-one smoothing): um zu verhindern, dass die Wahrscheinlichkeit
 für ein Wort, das nicht im Trainingsset vorkam, Null wird, was die gesamte 
@@ -79,9 +64,6 @@ Berechnung zerstören würde
 - Binarisierung: Bei der Sentimentanalyse ist es oft wichtiger, OB ein Wort 
 vorkommt, als wie oft. Hierbei werden Wortzählungen auf 1 begrenzt, was die 
 Performance oft verbessert
-
-Signifikanztests: Um zu beweisen, dass ein Modell wirklich besser ist als ein 
-anderes, sollten statistische Tests wie der Bootstrap-Test durchgeführt werden
 
 Sentiment-Lexika: Wenn wenig Trainingsdaten vorhanden sind, können 
 vordefinierte Listen positiver und negativer Wörter (z. B. MPQA) als Merkmale 
@@ -92,12 +74,6 @@ genutzt werden.
 - Valenz-Dimension: Sentiment wird oft über die Dimension der Valenz definiert. 
 In der Analyse von Rezensionen ist dies die Messung, wie sehr eine Person ein 
 Produkt mag oder ablehnt.
-- Arten von Sentiment-Lexika:
-    - Binär: Einfache Listen für positive und negative Wörter 
-    (z. B. MPQA, Hu und Liu)
-    - Intensitätsbasiert: Lexika, die Wörter auf Skalen (z. B. 0 bis 1) für 
-    Dimensionen wie Valenz, Erregung und Dominanz bewerten 
-    (z. B. NRC VAD Lexicon)
 - Typische Merkmale in Rezensionen:
     - 1-Sterne-Rezensionen: Nutzen häufig logische Negationen (no, not) und 
     beziehen sich oft auf Personen (z. B. manager, waiter)
@@ -108,7 +84,7 @@ Regression) dienen Wortzählungen aus Lexika als zusätzliche Merkmale, um die
 Genauigkeit zu verbessern
 
 
-[3, Chapter H]
+#[3, Chapter H]
 Kernanforderungen an das System:
     - Eindeutigkeit: Während Rezensionen sprachlich mehrdeutig sein können, 
     muss die interne Repräsentation der Meinung absolut eindeutig sein
@@ -122,7 +98,7 @@ Kernanforderungen an das System:
     Erlebnis schließen.
 
 
-[4]
+#[4]
 - Sentimentanalyse (auch Stimmungsanalyse) ist der Prozess zur Ermittlung von 
 Meinungen, Urteilen oder Emotionen hinter einem Text.
 - Das Ziel ist es, den Ausdruck von Sprache dahingehend zu bewerten, in welchem 
@@ -130,7 +106,7 @@ Ausmaß er positiv, negativ oder neutral ist.
 - Häufig erfolgt die Bewertung über einen Sentiment Score, beispielsweise auf 
 einer Skala von -1 (negativ) bis +1 (positiv)
 
-HERAUSFORDERUNGEN
+[4]HERAUSFORDERUNGEN
 - Kontextabhängigkeit: Ein Wort kann je nach Produkt positiv oder negativ sein 
 (z. B. ein „dünner“ Laptop ist positiv, „dünne“ Wände im Hotel sind negativ)
 - Sprachliche Nuancen: Sarkasmus, Ironie, Redewendungen und grammatikalische 
@@ -139,7 +115,7 @@ Komplexität sind für KI-Tools schwer zu interpretieren.
 neutral wirken.
 
 
-[5]
+#[5]
 - Das Ziel ist die automatische Auswertung von Texten, um Aussagen als positiv, 
 neutral oder negativ einzustufen und die dahinterliegende Haltung oder 
 Stimmung zu erkennen.
@@ -161,7 +137,7 @@ bearbeiten.
 Konkurrenz.
 
 
-[6]
+#[6]
 - Sentimentanalyse: Die Untersuchung des emotionalen Tons eines Textes, wobei meist 
 die Valenz oder Polarität (wie positiv oder negativ eine Stimmung ist) bestimmt wird
 
@@ -189,9 +165,3 @@ WICHTIGE PYTHON-TOOLS
     --> ABER SELBST TRAINIEREN, EIGENES MODELL ERSTELLEN!
 - TextBlob: lexikonbasiert, bietet sowohl lexikonbasierte als auch Naive-Bayes-Ansätze.
 
-
-[keine Quelle]
-- Embeddings eher für neuronale Netze (auch für LR), besser LR {TF-IDF oder BoW}
-und Naive Bayes {TF-IDS oder BoW}
-- OneHot Vektoren sind hochdimensionale Vektoren, die jedes Wort eindeutig
-kodieren, aber keine semantische Informationen speichern
