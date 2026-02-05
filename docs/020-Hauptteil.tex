@@ -1,55 +1,90 @@
 \chapter{Explorative Datenanalyse}
-hier wird der datensatz genauer analysiert
+In diesem Kapitel wird der verwendete Datensatz im Rahmen einer explorativen
+Datenanalyse (EDA) untersucht. Ziel ist es, ein grundlegendes Verständnis der
+Datenstruktur, zentraler Eigenschaften sowie potenzieller Auffälligkeiten zu
+gewinnen. Hierzu zählen insbesondere statistische Kennzahlen, Verteilungen und
+relevante Besonderheiten des Datensatzes.
 
 \section{Datensatz}
-[2]
-Der Amazon Reviews’23-Datensatz ist eine groß angelegte Sammlung von 
-Amazon-Produktrezensionen, die im Jahr 2023 vom McAuley Lab veröffentlicht wurde. Er 
-dient als umfassende Ressource für Forschung in den Bereichen Textanalyse, 
-Empfehlungs- und Retrieval-Systeme sowie maschinelles Lernen.
-\\
-Der Datensatz umfasst über 571 Millionen Nutzerrezensionen, die zwischen Mai 1996 
-und September 2023 gesammelt wurden, und enthält Informationen zu mehr als 48 
-Millionen Produkten aus über 30 Produktkategorien sowie zu mehr als 54 Millionen 
-Nutzer-IDs. Damit ist die Version von 2023 deutlich größer und umfassender als 
-frühere Amazon-Review-Datensätze.
-\\
-Der Datensatz besteht aus verschiedenen miteinander verknüpften Komponenten:
-- User Reviews: Enthält die Bewertungen von Nutzerinnen und Nutzern, einschließlich 
-Sternebewertungen (rating), Titel, Textkörper (text), hilfreiche Stimmen, 
-Produkt-IDs (asin, parent\_asin), verifizierte Käufe und Zeitstempel.
-- Item Metadata: Produktinformationen wie Beschreibungen, Preisangaben und weitere 
-Attribute, die den Artikeln zugeordnet sind.
-- Links: Beziehungen zwischen Usern und Produkten 
+Der Amazon Reviews’23-Datensatz ist eine umfangreiche Sammlung von
+Produktrezensionen, die 2023 vom McAuley Lab veröffentlicht wurde. Er wird häufig
+in der Forschung zu Textanalyse, Empfehlungssystemen und maschinellem Lernen
+eingesetzt.
+Insgesamt umfasst der Datensatz über 571 Millionen Nutzerrezensionen aus dem
+Zeitraum von Mai 1996 bis September 2023. Die Bewertungen beziehen sich auf mehr
+als 48 Millionen Produkte aus über 30 Kategorien und stammen von mehr als 54
+Millionen Nutzerinnen und Nutzern. Damit stellt die Version von 2023 die bislang
+größte und umfassendste Ausprägung der Amazon-Review-Datensätze dar und erlaubt
+Analysen in bisher nicht erreichter Skalierung. [2]
+Der Datensatz ist modular aufgebaut und besteht aus mehreren miteinander
+verknüpften Komponenten, darunter \textit{User Reviews}, \textit{Item Metadata}
+und \textit{Links}. Den Kern bilden die \textit{User Reviews}, welche neben den
+vergebenen Sternebewertungen auch Titel und Textkörper der Rezensionen
+enthalten. Ergänzend sind Zeitstempel, Informationen zu verifizierten Käufen
+sowie weitere nutzer- und produktspezifische Attribute enthalten.
+Im Rahmen dieser Arbeit wurden ausschließlich die \textit{User Reviews}
+verwendet, da der Fokus auf der Analyse der textuellen Nutzerbewertungen und
+ihrer sentimentbezogenen Eigenschaften liegt. Die weiteren Komponenten des
+Datensatzes wurden nicht berücksichtigt.
 
 \section{Gewählte Kategorien}
-- Kategorien: allbeauty, handmadeProducts und healthAndPersonalCare, da sie von der
-Größe ähnlich sind (knapp 300MB) und semantisch unterschiedlich.
-Anzahl Rezensionen: 
-AllBeauty - 701.528
-HandmadeProducts - 664.162
-HealthAndPersonalHealth - 494.121
-- es gibt 10 verschiedene Spalten, hauptsächlich type object, aber auch DateTime
-und 2 int64 für Rating und HelpfulVote, und bool bei verified\_purchase
-- zum Glück gibts bei keiner Spalte fehlende Werte
+Für die Analyse wurden die Kategorien AllBeauty, HandmadeProducts und
+HealthAndPersonalCare ausgewählt. Die Auswahl erfolgte gezielt, um sowohl eine
+vergleichbare Datengröße von jeweils knapp 300 MB als auch inhaltliche Vielfalt
+sicherzustellen. Die Kategorien unterscheiden sich deutlich hinsichtlich der
+Produkttypen und der in den Rezensionen verwendeten Sprache. Die Kategorie
+AllBeauty umfasst $701.528$ Rezensionen, HandmadeProducts $664.162$ und
+HealthAndPersonalCare $494.121$. Jede Kategorie enthält zehn Attribute, darunter
+Textfelder, Zeitstempel, numerische Bewertungen sowie Angaben zu verifizierten
+Käufen. Fehlende Werte treten in keiner der betrachteten Spalten auf, was die
+Datenvorverarbeitung vereinfacht.
+
+Der Datensatz jeder Kategorie besteht aus zehn Spalten. Der überwiegende Teil der 
+Attribute liegt im Datentyp object vor und umfasst unter anderem Textfelder wie den 
+Rezensionstitel und den eigentlichen Rezensionstext. Zusätzlich sind Zeitstempel im 
+DateTime-Format enthalten. Die numerischen Bewertungen (\textit{rating}) sowie die Anzahl 
+hilfreicher Stimmen (\textit{helpful\_vote}) sind als int64 gespeichert, während das Attribut 
+\textit{verified\_purchase} als boolescher Wert vorliegt und angibt, ob es sich um einen 
+verifizierten Kauf handelt.
+
+Ein großer Vorteil des verwendeten Datensatzes besteht darin, dass in keiner der 
+betrachteten Spalten fehlende Werte auftreten. Dadurch entfällt die Notwendigkeit 
+zusätzlicher Imputationsschritte, was die Datenvorverarbeitung vereinfacht und die 
+Konsistenz der Analyse erhöht.
 
 \section{Verteilung der Bewertungen}
-- AllBeauty mean bei 3.96
-- HandmadeProducts mean bei 4.49
-- HealthAndPersonalHealth mean bei 3.99
-also sehr positiver Datensatz, jedoch nicht stark einseitig
-- std ist bei allen auch nicht groß liegt bei 1.4 ungefähr
-- die meisten Ratings sind 5, also später die Klassen ausgleichen, und
-Datenmenge sowieso reduzieren
-- wichtig zu erwähnen ist, dass bei handmade bei 5\% reviews der Einkauf nicht
-verifiziert wurde, bei AllBeauty und Healthcare sind es sogar 10\%
-- die Textlänge ist bis auf wenige Ausreißer bei AllBeauty und HealthCare gleich,
-Handmade hat etwas kürze
-- Bei Länge von Bewertungen, sieht man das min = 0 ist. D.h. obwohl es keine 
-missing-values gab, gibt es trotzdem Bewertungen ohne Text, die man bei der
-Vorverarbeitung entfernen muss
+Die explorative Analyse zeigt, dass alle drei Kategorien überwiegend positiv
+bewertet sind. Die durchschnittlichen Bewertungen liegen bei $3,96$ für
+AllBeauty, $4,49$ für HandmadeProducts und $3,99$ für
+HealthAndPersonalCare. Die Standardabweichung beträgt in allen Kategorien etwa
+$1,4$ und weist auf eine moderate Streuung der Bewertungen hin.
+In allen Kategorien dominieren Fünf-Sterne-Bewertungen deutlich, was auf eine
+starke Klassenungleichverteilung hinweist. Daher sind im weiteren Verlauf
+Maßnahmen zur Reduktion und zum Ausgleich der Daten notwendig.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.55\linewidth]{pics/Rating_Verteilung_AllBeauty.png}
+    \caption{Rating-Verteilung von AllBeauty}
+    \label{fig:rating_dist_allbeauty}
+\end{figure}
 
-BILDER VIELLEICHT IMPORTIEREN VON EDA?
+Der Anteil nicht verifizierter Käufe liegt bei etwa fünf Prozent in der Kategorie
+HandmadeProducts und bei rund zehn Prozent in den Kategorien AllBeauty und
+HealthAndPersonalCare. Diese Bewertungen werden gesondert betrachtet, da sie
+potenziell eine geringere Aussagekraft besitzen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{pics/Verifizierte_Kaufe_HandmadeProducts.png}
+    \caption{Verifizierte Käufe von HandmadeProducts}
+    \label{fig:verified_purchase_handmadep}
+\end{figure}
+
+Die Analyse der Textlängen zeigt ähnliche Verteilungen für AllBeauty und
+HealthAndPersonalCare, während die Rezensionen in HandmadeProducts im
+Durchschnitt kürzer sind. Zudem existieren Bewertungen ohne Textinhalt, die trotz
+klassischer \textit{missing values} auftreten. Solche Einträge werden in der
+Datenvorverarbeitung entfernt, da sie für die textbasierte Analyse nicht geeignet
+sind.
 
 \chapter{Datenvorverarbeitung}
 - irgendwas über Preprocessing
