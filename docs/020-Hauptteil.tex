@@ -87,79 +87,177 @@ Datenvorverarbeitung entfernt, da sie für die textbasierte Analyse nicht geeign
 sind.
 
 \chapter{Datenvorverarbeitung}
-- irgendwas über Preprocessing
-----------------------------------------------
-\section{Data Cleaning}
-- Datenmenge reduzieren und die Verteilung von Rating ausgleichen
-- alle reviews löschen die nicht verifizierten Kauf haben
-- alle mit Textlänge < 10 löschen
-- alle spalten löschen die unnötig sind (es bleiben nur: rating, title, text)
+Bevor maschinelle Lernmodelle auf Textdaten angewendet werden können, ist eine
+gründliche Datenvorverarbeitung notwendig. Diese umfasst mehrere Schritte: Zunächst 
+werden irrelevante
+oder fehlerhafte Einträge entfernt und die Datenmenge
+reduziert. Anschließend erfolgt die Textaufbereitung, bei der die Rezensionstexte
+u.a. tokenisiert und lemmatisiert werden.
+Darauf aufbauend werden numerische Repräsentationen der Texte erstellt,
+die als Eingabe für die Modelle dienen. Abschließend wird das Format
+für die Eingabe- und Ausgabe definiert. Ziel dieses Kapitels ist es, die
+Rohdaten in eine konsistente und analysierbare Form zu bringen, um die
+Leistungsfähigkeit der nachfolgenden Modelle zu maximieren.
+
+\section{Datenbereinigung}
+Zunächst wurde die Gesamtmenge der Rezensionen reduziert. Hintergrund hierfür
+ist sowohl der hohe Rechenaufwand bei der Verarbeitung sehr großer Datensätze
+als auch die stark unausgeglichene Verteilung der Bewertungsstufen. Da
+Fünf-Sterne-Bewertungen in allen betrachteten Kategorien deutlich dominieren,
+wurden Maßnahmen zur Klassenbalancierung ergriffen.
+
+Darüber hinaus wurden alle Rezensionen entfernt, die nicht als verifizierter
+Kauf gekennzeichnet sind. Diese Bewertungen können potenziell eine geringere
+Aussagekraft besitzen, da nicht sichergestellt ist, dass die bewertenden
+Personen das entsprechende Produkt tatsächlich erworben haben. Durch die
+Beschränkung auf verifizierte Käufe wird die Zuverlässigkeit der verwendeten
+Daten erhöht.
+
+Ein weiterer Bereinigungsschritt betrifft die Länge der Rezensionstexte. Alle
+Einträge mit einer Textlänge von weniger als zehn Zeichen wurden aus dem
+Datensatz entfernt. Solche sehr kurzen Texte enthalten in der Regel keine
+ausreichenden semantischen Informationen, um eine sinnvolle Sentimentanalyse
+durchzuführen, und können das Modelltraining negativ beeinflussen.
+
+Abschließend wurden alle Spalten entfernt, die für die durchgeführte Analyse
+nicht relevant sind. Für die weitere Verarbeitung und Modellierung wurden
+ausschließlich die Attribute \textit{rating}, \textit{title} und \textit{text}
+beibehalten. Diese Auswahl stellt sicher, dass der Fokus vollständig auf den
+bewertungsbezogenen Informationen und dem textuellen Inhalt der Rezensionen
+liegt, während unnötige Metadaten ausgeschlossen werden.
 
 \section{Textaufbereitung}
-- Zusammenführung von Titel und Text
-- lowercasing
-- Tokenisierung
-- Entfernen von Stoppwörtern
-- Umgang mit Sonderzeichen (Punctuation)
-- Entfernung von Emojis
-- Lemmatization (langsamer, aber genauer als Stemming und das ist hier wichtiger)
-- lemmatisierung ist bei default nur auf Nomen eingestellt, deswegen müssen wir 
-zuerst ein POS-Tagging machen um jedes Wort mit der Wortart zu taggen.
-Als erstens wird pos\_tag einen Tag zuweisen, danach muss man den - abhängig von
-der Ausgabe - die richtige Kategorie an lemmatizer übergeben
+Im Rahmen der Textaufbereitung wurden mehrere Verarbeitungsschritte angewendet, um 
+die Rezensionstexte für die anschließende Modellierung zu standardisieren und 
+inhaltlich zu bereinigen. Zunächst wurden der Titel und der eigentliche 
+Rezensionstext zu einem gemeinsamen Textfeld zusammengeführt, um alle verfügbaren 
+textuellen Informationen zu nutzen. Abschließend erfolgte eine Umwandlung aller 
+Zeichen in Kleinbuchstaben (Lowercasing). 
 
+Danach wurden die Texte tokenisiert, sodass sie in einzelne Wörter zerlegt vorlagen.
+Häufig vorkommende, aber inhaltlich wenig aussagekräftige Wörter (Stoppwörter) wurden 
+entfernt. Zusätzlich wurden Sonderzeichen und Satzzeichen (Punctuation) bereinigt 
+sowie Emojis aus den Texten entfernt, da diese in der gewählten textbasierten 
+Repräsentation nicht weiterverarbeitet werden.
+
+Für die Normalisierung der Wortformen wurde eine Lemmatisierung eingesetzt. Im 
+Vergleich zum Stemming ist diese zwar rechenintensiver, liefert jedoch sprachlich 
+präzisere Ergebnisse, was für die Qualität der Analyse als wichtiger erachtet wurde. 
+Da der verwendete Lemmatisierer standardmäßig nur auf Nomen ausgelegt ist, wurde 
+zuvor ein Part-of-Speech-Tagging durchgeführt. Dabei wird jedem Token 
+zunächst eine Wortart zugewiesen. Abhängig von diesem POS-Tag wird anschließend die 
+jeweils passende Wortart an den Lemmatisierer übergeben, sodass eine korrekte 
+Lemmatisierung für Verben, Adjektive und Nomen gewährleistet ist.
 
 \section{Numerische Repräsentation}
-- es wird für jedes df eine spalte category erstellt mit value (allbeauty, handmade
-oder healthcare) um es dann nachdem zusammenführen besser zu unterscheiden. Dies hilft
-bei einer gleichmäßigen Aufteilung in Train und Test.
-- danach alle 3 DF zusammenführen
-- hier wird es gesplittet. Train 0.8, Test 0.2, gleichmäßig nach category 
-mithilfe von stratify-argument
-- Verwendung von TF-IDF
-    da viele Wörter redundant (product, use, one, etc.), hebt wichtige wörter 
-    hervor (excellent, terrible, perfect)
-    BoW zählt nur Wörter und beachtet keine Relevanz
-- n\_gram auf 1,5 damit negationen erkannt werden, minDF auf 5 (Wort muss mind. in
-5 Rezensionen vorkommen sonst unwichtig), maxDF auf 0.95 (wenn ein Wort mehr als
-in 95\% der Rezensionen vorkommt dann unnötig)
-- traindaten fitten und transformieren, testdaten nur transformieren
-- alle daten und tfidf als datei speichern
+Im nächsten Schritt wurde die Datenbasis für das Modelltraining vorbereitet und in 
+eine numerische Form überführt. Zunächst wurde für jedes der drei DataFrames eine 
+zusätzliche Spalte \textit{category} erstellt, die die jeweilige Kategorie 
+(AllBeauty, HandmadeProducts oder HealthAndPersonalCare) enthält. Diese 
+Kennzeichnung ermöglicht es, die Daten nach dem Zusammenführen eindeutig zuzuordnen 
+und unterstützt insbesondere eine ausgewogene Aufteilung der Daten in Trainings- und 
+Testmenge.
+Anschließend wurden die drei DataFrames zu einem gemeinsamen Datensatz zusammengeführt. 
+Die Aufteilung in Trainings- und Testdaten erfolgte im Verhältnis 80\% zu 20\%. Um 
+sicherzustellen, dass alle Kategorien in beiden Teilmengen gleichmäßig vertreten sind, 
+wurde die Aufteilung mit \texttt{stratify}-Argument anhand der Kategorie-Spalte 
+durchgeführt.
+
+Für die numerische Repräsentation der Texte wurde das TF-IDF-Verfahren eingesetzt. 
+Dieses Verfahren gewichtet Wörter nicht nur nach ihrer Häufigkeit, sondern 
+berücksichtigt auch ihre Relevanz innerhalb des gesamten Korpus. Dadurch werden 
+häufige, aber wenig aussagekräftige Begriffe wie \textit{product}, \textit{use} oder 
+\textit{one} abgeschwächt, während inhaltlich relevante Wörter wie \textit{excellent}, 
+\textit{terrible} oder \textit{perfect} stärker hervorgehoben werden. Im Gegensatz 
+dazu würde ein Bag-of-Words-Ansatz lediglich Wortzählungen berücksichtigen, ohne 
+deren Bedeutung für die Unterscheidung der Klassen zu bewerten.
+
+Zur besseren Erfassung von Negationen und kurzen Wortkombinationen wurde ein 
+N-Gram-Bereich von $(1,5)$ gewählt. Die Auswahl dieses Bereichs basiert auf 
+Voruntersuchungen, in denen verschiedene Kombinationen von $(1,1)$ bis $(1,6)$ 
+miteinander verglichen wurden. Zwar erzielte $(1,6)$ einen geringfügig höheren 
+F1-Score von $0,534$, jedoch bot $(1,5)$ mit einem F1-Score von $0,523$ bei 
+deutlich kürzerer Berechnungszeit (133,42,s gegenüber 179,45,s) das bessere 
+Verhältnis zwischen Leistung und Effizienz. Diese Ergebnisse basieren auf 
+Experimenten mit der logistischen Regression, wobei sich für Multinomial Naive 
+Bayes sehr ähnliche Resultate zeigten.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{pics/ngrams_lr.png}
+    \caption{Ergebnisse der N-Gramme bei Logistischer Regression}
+    \label{fig:ngrams_lr}
+\end{figure}
+Zusätzlich wurden Schwellenwerte für die Dokumentfrequenz festgelegt. Mit 
+\texttt{minDF}=$5$ werden Wörter ausgeschlossen, die in weniger als fünf Rezensionen 
+vorkommen und somit als wenig relevant gelten. Mit \texttt{maxDF}=$0,95$ werden 
+Begriffe entfernt, die in mehr als 95\% der Dokumente auftreten und daher kaum 
+trennscharfe Information liefern.
+Der TF-IDF-Vektorisierer wurde auf den Trainingsdaten erstellt, indem er dort 
+gefittet und transformiert wurde. Abschließend wurden sowohl die 
+aufbereiteten Datensätze als auch die erzeugten TF-IDF-Merkmalsmatrizen mithilfe von 
+\textit{joblib} als Dateien gespeichert, sodass sie für das nachfolgende 
+Modelltraining und die Evaluation reproduzierbar zur Verfügung stehen.
 
 \section{Trennung von Eingabe- und Ausgabedaten}
-- Definition der Zielvariable (numerische Bewertung)
-    EINGABE (Features, X): Text = Titel + Beschreibung
-    AUSGABE (Target, y):   Rating = 1, 2, 3, 4, 5 Sterne
-    das vielleicht erst beim Modell und als Funktion! (text als eingabe und dann 
-    die gleiche Reihenfolge wie bei Preprocessing)
+Die Trennung von Eingabe- und Ausgabedaten bildet die Grundlage für das anschließende 
+Modelltraining. Als Zielvariable wird die numerische Sternebewertung definiert, die 
+eine Klassenzugehörigkeit von eins bis fünf Sternen repräsentiert. Diese Bewertung 
+stellt die vorherzusagende Größe dar und wird als Ausgabevariable $y$ verwendet.
 
+Die Eingabedaten (Features $X$) bestehen aus den textuellen Informationen der 
+Rezensionen. Hierzu werden der Rezensionstitel und der zugehörige Rezensionstext zu 
+einem gemeinsamen Textfeld zusammengeführt, um dem Modell möglichst vollständige 
+kontextuelle Informationen bereitzustellen.
+
+Der gesamte Vorverarbeitungsprozess ist auf dem folgenden Bild zu sehen:
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{pics/preprocess.png}
+    \caption{Vorverarbeitungsprozess. Quelle: eigene Darstellung}
+    \label{fig:preprocess}
+\end{figure}
 
 
 \chapter{Modell und Methodik}
-- Problemformulierung als Klassifikationsaufgabe
-- Supervised Learning
-- Mehrklassen-Klassifikation (5 Klassen)
-[1] 
-"A classification model can be either generative or discriminative.
-- generative: based on probability distribution
-- discriminative: learns borders between classes"
-----------------------------------------------
-\section{Logistische Regression}
-- [1] discriminative
-- [1] kategorien selbst bestimmen
-- Beschreibung des gewählten Klassifikators
-- Begründung der Eignung für Textklassifikation
-[1] 
-"Logistic Regression ist discriminative. 
+Die vorliegende Aufgabenstellung wird als Klassifikationsproblem formuliert, bei dem 
+Textdaten einer diskreten Menge von Klassen zugeordnet werden. Da den Rezensionen 
+bereits explizite Sternebewertungen zugeordnet sind, handelt es sich um ein 
+überwachtes Lernproblem (Supervised Learning), bei dem Modelle anhand gelabelter 
+Trainingsdaten erlernt werden. Konkret liegt eine Mehrklassen-Klassifikationsaufgabe 
+mit fünf Klassen vor, die den möglichen Sternebewertungen von eins bis fünf 
+entsprechen.
 
-Merkmale müssen nicht kategorial sein. Man kann BoW nutzen oder was anderes.
-Hier wird jedes Feature mit einem Gewicht multipliziert und anschließend
-ein Bias addiert. Die Klassenwahrscheinlichkeit enthält man durch 
-[Normalisierung mit Softmax (Aktivierungsfunktion für multinomiale LR). Dies 
-ergibt einen K-dimensionalen Vektor (Wahrscheinlichkeitsverteilung für jede 
-Klasse K)] [3, Chapter 4]
-Keine starken Annahmen wie bei Naive Bayes.
-einfach, keine Unabhängigkeitsannahmen, aber nicht so schnell"
+Klassifikationsmodelle lassen sich grundsätzlich in generative und diskriminative 
+Ansätze einteilen. Generative Modelle basieren auf der Modellierung der 
+Wahrscheinlichkeitsverteilung der Daten innerhalb der einzelnen Klassen, während 
+diskriminative Modelle direkt Entscheidungsgrenzen zwischen den Klassen erlernen [1]. 
+Diese Unterscheidung ist insbesondere für den Vergleich der in dieser Arbeit 
+eingesetzten Modelle von Bedeutung.
+
+\section{Logistische Regression}
+Die logistische Regression gehört zu den diskriminativen Klassifikationsverfahren, 
+da sie nicht die zugrunde liegende Wahrscheinlichkeitsverteilung der Daten modelliert, 
+sondern direkt Entscheidungsgrenzen zwischen den Klassen erlernt [1].
+
+Ein wesentlicher Vorteil der logistischen Regression besteht darin, dass die 
+verwendeten Merkmale nicht kategorial sein müssen. Dadurch eignet sich das Verfahren 
+besonders gut für Textklassifikationsaufgaben, bei denen kontinuierliche oder 
+hochdimensionale Merkmalsrepräsentationen wie Bag-of-Words oder TF-IDF-Vektoren zum 
+Einsatz kommen. Jedes Merkmal wird mit einem Gewicht multipliziert und zusammen mit 
+einem Bias-Term zu einer linearen Kombination verarbeitet.
+Im Fall der multinomialen logistischen Regression wird die Klassenwahrscheinlichkeit 
+anschließend mithilfe der Softmax-Funktion normalisiert. Dadurch entsteht ein 
+$K$-dimensionaler Vektor, der eine Wahrscheinlichkeitsverteilung über alle 
+$K$ Klassen – in diesem Fall die fünf möglichen Sternebewertungen – repräsentiert 
+[3, Chapter 4].
+
+Im Vergleich zu generativen Modellen wie Naive Bayes trifft die logistische 
+Regression keine starken Annahmen über die Unabhängigkeit der Merkmale. Diese 
+Eigenschaft macht sie robuster gegenüber komplexen Abhängigkeiten zwischen Wörtern 
+im Text. Zwar ist die logistische Regression in der Regel rechnerisch aufwendiger 
+als einfache probabilistische Modelle, bietet jedoch eine höhere Flexibilität und 
+oft bessere Ergebnisse bei realistischen Textdaten, was ihre Eignung für die 
+vorliegende Textklassifikationsaufgabe unterstreicht. [7]
 
 \section{Multinomial Naive Bayes}
 - [1] generative 
@@ -214,14 +312,7 @@ for the task.
 \section{Trainingsprozess}
 - Training auf dem Trainingsdatensatz
 - Begründung des Vorgehens
-- beim Training der beiden Modelle wurde zusätzlich eine Pipeline erstellt um
-das beste NGram für Vektorisierung zu finden. Dabei wurde der F1-Score analysiert
-- es wurden (1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (1, 6) untersucht
-- dabei wurde auch die Trainingszeit gemessen
-- Ergebnisse
-- größter Sprung bei beiden von (1,2) auf (1,3). F1Score zwischen (1,5) und (1,6)
-ist nicht groß, aber die Trainingsdauer ist fast 1.5x länger. Daher wird (1,5) gewählt
-- die beiden Modelle sind für eigene Benutzereingabe zu verwenden unter ...
+
 
 
 \chapter{Evaluation und Ergebnisse}
