@@ -373,10 +373,6 @@ INPUT build/00-Main.lof
 INPUT build/00-Main.lof
 INPUT build/00-Main.lof
 OUTPUT build/00-Main.lof
-INPUT build/00-Main.lot
-INPUT build/00-Main.lot
-INPUT build/00-Main.lot
-OUTPUT build/00-Main.lot
 INPUT ./005-Abbreviations.tex
 INPUT ./005-Abbreviations.tex
 OUTPUT build/005-Abbreviations.aux
