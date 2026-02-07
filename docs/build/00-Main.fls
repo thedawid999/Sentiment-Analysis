@@ -469,6 +469,7 @@ INPUT build/00-Main.run.xml
 OUTPUT build/00-Main.run.xml
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxmi.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/rtxr.pfb
+INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txsy.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/public/txfonts/txtt.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb
 INPUT c:/texlive/2025/texmf-dist/fonts/type1/urw/times/utmb8a.pfb

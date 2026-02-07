@@ -5,10 +5,8 @@ Datenstruktur, zentraler Eigenschaften sowie potenzieller Auffälligkeiten zu
 gewinnen. Hierzu zählen insbesondere statistische Kennzahlen, Verteilungen und
 relevante Besonderheiten des Datensatzes.
 
-... siehe \cite[Kapitel 3.2]{jurafsky2023} ...
-
 \section{Datensatz}
-Der Amazon Reviews’23-Datensatz ist eine umfangreiche Sammlung von
+Der Amazon Reviews’23-Datensatz (\cite{hou2024bridging}) ist eine umfangreiche Sammlung von
 Produktrezensionen, die 2023 vom McAuley Lab veröffentlicht wurde. Er wird häufig
 in der Forschung zu Textanalyse, Empfehlungssystemen und maschinellem Lernen
 eingesetzt.
@@ -17,7 +15,7 @@ Zeitraum von Mai 1996 bis September 2023. Die Bewertungen beziehen sich auf mehr
 als 48 Millionen Produkte aus über 30 Kategorien und stammen von mehr als 54
 Millionen Nutzerinnen und Nutzern. Damit stellt die Version von 2023 die bislang
 größte und umfassendste Ausprägung der Amazon-Review-Datensätze dar und erlaubt
-Analysen in bisher nicht erreichter Skalierung. [2]
+Analysen in bisher nicht erreichter Skalierung. (\cite{amazon2023})
 Der Datensatz ist modular aufgebaut und besteht aus mehreren miteinander
 verknüpften Komponenten, darunter \textit{User Reviews}, \textit{Item Metadata}
 und \textit{Links}. Den Kern bilden die \textit{User Reviews}, welche neben den
@@ -232,14 +230,14 @@ entsprechen.
 Klassifikationsmodelle lassen sich grundsätzlich in generative und diskriminative 
 Ansätze einteilen. Generative Modelle basieren auf der Modellierung der 
 Wahrscheinlichkeitsverteilung der Daten innerhalb der einzelnen Klassen, während 
-diskriminative Modelle direkt Entscheidungsgrenzen zwischen den Klassen erlernen [1]. 
+diskriminative Modelle direkt Entscheidungsgrenzen zwischen den Klassen erlernen (\cite{voita2024textclass}). 
 Diese Unterscheidung ist insbesondere für den Vergleich der in dieser Arbeit 
 eingesetzten Modelle von Bedeutung.
 
 \section{Logistische Regression}
 Die logistische Regression gehört zu den diskriminativen Klassifikationsverfahren, 
 da sie nicht die zugrunde liegende Wahrscheinlichkeitsverteilung der Daten modelliert, 
-sondern direkt Entscheidungsgrenzen zwischen den Klassen erlernt [1].
+sondern direkt Entscheidungsgrenzen zwischen den Klassen erlernt (\cite{voita2024textclass}).
 
 Ein wesentlicher Vorteil der logistischen Regression besteht darin, dass die 
 verwendeten Merkmale nicht kategorial sein müssen. Dadurch eignet sich das Verfahren 
@@ -251,7 +249,7 @@ Im Fall der multinomialen logistischen Regression wird die Klassenwahrscheinlich
 anschließend mithilfe der Softmax-Funktion normalisiert. Dadurch entsteht ein 
 $K$-dimensionaler Vektor, der eine Wahrscheinlichkeitsverteilung über alle 
 $K$ Klassen – in diesem Fall die fünf möglichen Sternebewertungen – repräsentiert 
-[3, Chapter 4].
+(\cite[Kapitel 4]{jurafsky2023}).
 
 Im Vergleich zu generativen Modellen wie Naive Bayes trifft die logistische 
 Regression keine starken Annahmen über die Unabhängigkeit der Merkmale. Diese 
@@ -259,32 +257,32 @@ Eigenschaft macht sie robuster gegenüber komplexen Abhängigkeiten zwischen Wö
 im Text. Zwar ist die logistische Regression in der Regel rechnerisch aufwendiger 
 als einfache probabilistische Modelle, bietet jedoch eine höhere Flexibilität und 
 oft bessere Ergebnisse bei realistischen Textdaten, was ihre Eignung für die 
-vorliegende Textklassifikationsaufgabe unterstreicht. [7]
+vorliegende Textklassifikationsaufgabe unterstreicht (\cite{linkedin2024}). 
 
 \section{Multinomial Naive Bayes}
 Als zweiter Klassifikator wurde Multinomial Naive Bayes gewählt, ein generativer
 Ansatz, der Wahrscheinlichkeiten zur Vorhersage von Klassen nutzt
-[1]. Der Klassifikator geht davon aus, dass die Reihenfolge der 
+(\cite{voita2024textclass}). Der Klassifikator geht davon aus, dass die Reihenfolge der 
 Wörter im Text keine Rolle spielt und die Merkmale unabhängig voneinander sind, 
 sobald die Klasse bekannt ist. Dieses 
 Prinzip bezeichnete man als „naiv“, da die Unabhängigkeitsannahme in der 
 Realität oft nicht zutrifft. Beispielsweise behandelt der Klassifikator das 
 Auftreten des Wortes „good“ als unabhängig vom Auftreten des Wortes „very“, 
 sofern der Text als positiv klassifiziert wurde.Die Eingabedaten müssen kategorial sein, weshalb die Texte in der 
-Regel als BoW- bzw. TF-IDF-Vektoren dargestellt werden [1].
+Regel als BoW- bzw. TF-IDF-Vektoren dargestellt werden (\cite{voita2024textclass}).
 
 Um die Probleme bei unbekannten Wörtern zu vermeiden, wurde die 
 Laplace-Glättung verwendet, die in der Implementierung des Naive-Bayes-Klassifikators 
 über das \texttt{alpha}-Argument gesteuert wird. Der Wert wurde auf 1 festgelegt. 
 Durch die Glättung wurde 
 verhindert, dass die Wahrscheinlichkeit für ein Wort, das im Trainingsset nicht 
-vorkam, auf Null sank und somit die gesamte Berechnung zerstörte [3, Chapter B].
+vorkam, auf Null sank und somit die gesamte Berechnung zerstörte (\cite[Kapitel B]{jurafsky2023}).
 Zusätzlich wurde das Argument \texttt{class\_prior}=None gesetzt, 
 wodurch der Klassifikator die Klassenwahrscheinlichkeiten aus den Trainingsdaten 
 selbst schätzte, ohne die A-priori zu kennen.
 
 Der Naive Bayes Klassifikator zeichnet sich durch seine Einfachheit, 
-Geschwindigkeit und Interpretierbarkeit aus [3, Chapter B]. Das Training ist 
+Geschwindigkeit und Interpretierbarkeit aus (\cite[Kapitel B]{jurafsky2023}). Das Training ist 
 besonders effizient, da lediglich eine einzige Durchsicht der Trainingsdaten 
 notwendig war, um die Wortzählungen zu bestimmen. Demgegenüber erforderten 
 andere Methoden, wie etwa die logistische Regression, mehrere Iterationen über 
@@ -292,7 +290,7 @@ die Daten.
 Allerdings ist der Klassifikator auch eingeschränkt, da die Annahme der 
 bedingten Unabhängigkeit der Merkmale oft unrealistisch ist. Zudem setzt er 
 auf manuell definierte Features (wie BoW), wodurch potenziell nützliche 
-Informationen übersehen werden konnten [3, Chapter B].
+Informationen übersehen werden konnten (\cite[Kapitel B]{jurafsky2023}).
 
 
 \chapter{Evaluation und Ergebnisse}
@@ -348,10 +346,10 @@ Bewertungsbereich zu unterscheiden.
 Die Accuracy-Werte erscheinen zunächst niedrig, ist jedoch für Multiclass-Aufgaben mit 
 mehreren Klassen typisch. Vergleichbare Studien zeigten bei fünf Klassen 
 ähnliche Werte von etwa 60\%, während binäre Klassifikationen üblicherweise 
-80–90\% erreichen [8]. Der Grund für niedrige Accuracy-Werte bei Multiclass-Aufgaben ist, dass mit
+80–90\% erreichen (\cite{researchgate2020}). Der Grund für niedrige Accuracy-Werte bei Multiclass-Aufgaben ist, dass mit
 zunehmender Klassenzahl weniger eindeutige Muster existieren. Zudem erschwerte 
 die Subjektivität der Texte die Zuordnung, da semantisch nicht jedes Review 
-zwingend dem passenden Rating entsprach [8].
+zwingend dem passenden Rating entsprach (\cite{researchgate2020}).
 
 Die Analyse der Konfusionsmatrix zeigte für beide Modelle ähnliche Muster. 
 Die Hauptdiagonale war deutlich erkennbar, was darauf hinwies, dass die meisten 
