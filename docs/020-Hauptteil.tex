@@ -36,16 +36,17 @@ Produkttypen und der in den Rezensionen verwendeten Sprache. Die Kategorie
 AllBeauty umfasst $701.528$ Rezensionen, HandmadeProducts $664.162$ und
 HealthAndPersonalCare $494.121$. Jede Kategorie enthält zehn Attribute, darunter
 Textfelder, Zeitstempel, numerische Bewertungen sowie Angaben zu verifizierten
-Käufen. Fehlende Werte treten in keiner der betrachteten Spalten auf, was die
-Datenvorverarbeitung vereinfacht.
+Käufen.
 
-Der Datensatz jeder Kategorie besteht aus zehn Spalten. Der überwiegende Teil der 
-Attribute liegt im Datentyp object vor und umfasst unter anderem Textfelder wie den 
-Rezensionstitel und den eigentlichen Rezensionstext. Zusätzlich sind Zeitstempel im 
-DateTime-Format enthalten. Die numerischen Bewertungen (\textit{rating}) sowie die Anzahl 
-hilfreicher Stimmen (\textit{helpful\_vote}) sind als int64 gespeichert, während das Attribut 
-\textit{verified\_purchase} als boolescher Wert vorliegt und angibt, ob es sich um einen 
-verifizierten Kauf handelt.
+Der überwiegende Teil der 
+Attribute liegt im Datentyp \texttt{object} vor und umfasst unter anderem 
+Textfelder wie den 
+Rezensionstitel und den eigentlichen Rezensionstext. Zusätzlich sind Zeitstempel 
+im \texttt{DateTime}-Format enthalten. Die numerischen Bewertungen 
+(\textit{rating}) sowie die Anzahl hilfreicher Stimmen (\textit{helpful\_vote}) 
+sind als \texttt{int64} gespeichert, während das Attribut 
+\textit{verified\_purchase} als boolescher Wert vorliegt und angibt, ob es sich 
+um einen verifizierten Kauf handelt.
 
 Ein großer Vorteil des verwendeten Datensatzes besteht darin, dass in keiner der 
 betrachteten Spalten fehlende Werte auftreten. Dadurch entfällt die Notwendigkeit 
@@ -130,9 +131,8 @@ liegt, während unnötige Metadaten ausgeschlossen werden.
 Im Rahmen der Textaufbereitung wurden mehrere Verarbeitungsschritte angewendet, um 
 die Rezensionstexte für die anschließende Modellierung zu standardisieren und 
 inhaltlich zu bereinigen. Zunächst wurden der Titel und der eigentliche 
-Rezensionstext zu einem gemeinsamen Textfeld zusammengeführt, um alle verfügbaren 
-textuellen Informationen zu nutzen. Abschließend erfolgte eine Umwandlung aller 
-Zeichen in Kleinbuchstaben (Lowercasing). 
+Rezensionstext zu einem gemeinsamen Textfeld zusammengeführt und in 
+Kleinbuchstaben umgewandelt (Lowercasing). 
 
 Danach wurden die Texte tokenisiert, sodass sie in einzelne Wörter zerlegt vorlagen.
 Häufig vorkommende, aber inhaltlich wenig aussagekräftige Wörter (Stoppwörter) wurden 
@@ -160,8 +160,8 @@ Testmenge.
 Anschließend wurden die drei DataFrames zu einem gemeinsamen Datensatz zusammengeführt. 
 Die Aufteilung in Trainings- und Testdaten erfolgte im Verhältnis 80\% zu 20\%. Um 
 sicherzustellen, dass alle Kategorien in beiden Teilmengen gleichmäßig vertreten sind, 
-wurde die Aufteilung mit \texttt{stratify}-Argument anhand der Kategorie-Spalte 
-durchgeführt.
+wurde die Aufteilung mit \texttt{stratify}-Argument anhand der 
+\textit{category}-Spalte durchgeführt.
 
 Für die numerische Repräsentation der Texte wurde das TF-IDF-Verfahren eingesetzt. 
 Dieses Verfahren gewichtet Wörter nicht nur nach ihrer Häufigkeit, sondern 
@@ -179,12 +179,12 @@ miteinander verglichen wurden. Zwar erzielte $(1,6)$ einen geringfügig höheren
 F1-Score von $0,534$, jedoch bot $(1,5)$ mit einem F1-Score von $0,523$ bei 
 deutlich kürzerer Berechnungszeit (133,42,s gegenüber 179,45,s) das bessere 
 Verhältnis zwischen Leistung und Effizienz. Diese Ergebnisse basieren auf 
-Experimenten mit der logistischen Regression, wobei sich für Multinomial Naive 
+Experimenten mit der logistischen Regression, wobei sich für Naive 
 Bayes sehr ähnliche Resultate zeigten.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{pics/ngrams_lr.png}
-    \caption{Ergebnisse der N-Gramme bei Logistischer Regression}
+    \includegraphics[width=0.4\linewidth]{pics/ngrams_nb.png}
+    \caption{Ergebnisse der N-Gramme bei Naive Bayes}
     \label{fig:ngrams_lr}
 \end{figure}
 Zusätzlich wurden Schwellenwerte für die Dokumentfrequenz festgelegt. Mit 
@@ -213,7 +213,7 @@ Der gesamte Vorverarbeitungsprozess ist auf dem folgenden Bild zu sehen:
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pics/preprocess.png}
-    \caption{Vorverarbeitungsprozess. Quelle: eigene Darstellung}
+    \caption{Vorverarbeitungsprozess. Quelle: Gemini, Nano Banana Pro}
     \label{fig:preprocess}
 \end{figure}
 
@@ -259,16 +259,17 @@ als einfache probabilistische Modelle, bietet jedoch eine höhere Flexibilität 
 oft bessere Ergebnisse bei realistischen Textdaten, was ihre Eignung für die 
 vorliegende Textklassifikationsaufgabe unterstreicht (\cite{linkedin2024}). 
 
-\section{Multinomial Naive Bayes}
-Als zweiter Klassifikator wurde Multinomial Naive Bayes gewählt, ein generativer
+\section{Naive Bayes}
+Als zweiter Klassifikator wurde Naive Bayes gewählt, ein generativer
 Ansatz, der Wahrscheinlichkeiten zur Vorhersage von Klassen nutzt
 (\cite{voita2024textclass}). Der Klassifikator geht davon aus, dass die Reihenfolge der 
 Wörter im Text keine Rolle spielt und die Merkmale unabhängig voneinander sind, 
 sobald die Klasse bekannt ist. Dieses 
-Prinzip bezeichnete man als „naiv“, da die Unabhängigkeitsannahme in der 
+Prinzip bezeichnet man als „naiv“, da die Unabhängigkeitsannahme in der 
 Realität oft nicht zutrifft. Beispielsweise behandelt der Klassifikator das 
 Auftreten des Wortes „good“ als unabhängig vom Auftreten des Wortes „very“, 
-sofern der Text als positiv klassifiziert wurde.Die Eingabedaten müssen kategorial sein, weshalb die Texte in der 
+sofern der Text als positiv klassifiziert wurde. Bei diesem Ansatz
+müssen die Eingabedaten kategorial sein, weshalb die Texte in der 
 Regel als BoW- bzw. TF-IDF-Vektoren dargestellt werden (\cite{voita2024textclass}).
 
 Um die Probleme bei unbekannten Wörtern zu vermeiden, wurde die 
@@ -305,7 +306,7 @@ Metriken wurde dadurch begründet, dass Sentimentanalyse ein klassisches
 Klassifizierungsproblem darstellt. Accuracy bietet einen allgemeinen Überblick 
 über die Modellgüte, während Precision, Recall und F1-Score die 
 Leistungsfähigkeit in Bezug auf einzelne Klassen differenzierter darstellen. 
-Die Confusion Matrix erlaubt zudem eine detaillierte Analyse der 
+Die Konfusionsmatrix erlaubt zudem eine detaillierte Analyse der 
 Fehlklassifikationen.
 
 
@@ -320,7 +321,7 @@ Bewertung, Klasse 5,
 erreichte die besten Werte mit einem F1-Score von 0,69. 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{pics/classification_report_logreg.png}
+    \includegraphics[width=0.6\linewidth]{pics/results_lr.png}
     \caption{Classification Report, Logistische Regression}
     \label{fig:report_logreg}
 \end{figure}
@@ -338,7 +339,7 @@ kann. Es hat jedoch Schwierigkeiten, feinere Abstufungen im mittleren
 Bewertungsbereich zu unterscheiden.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.4\linewidth]{pics/classification_report_nb.png}
+    \includegraphics[width=0.6\linewidth]{pics/results_nb.png}
     \caption{Classification Report, Naive Bayes}
     \label{fig:report_nb}
 \end{figure}
@@ -365,7 +366,7 @@ einer Verstärkung der Werte in den Feldern direkt neben der Hauptdiagonale.
     \label{fig:confusionmatrix}
 \end{figure}
 
-Insgesamt zeigte sich, dass beide Modelle die extremen Klassen (1 und 5 Sterne) 
+Insgesamt zeigte sich, dass beide Modelle die extremen Klassen (1 und 5) 
 am zuverlässigsten klassifizierten, während die mittleren Klassen stärker 
 miteinander verwechselt wurden. Dies deutet darauf hin, dass semantisch 
 ähnliche Reviews unterschiedlich bewertet wurden, was die Klassifikation 
