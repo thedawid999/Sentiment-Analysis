@@ -1,3 +1,5 @@
+# HERE YOU CAN TEST BOTH PRETRAINED MODELS ON YOUR OWN INPUT
+
 import re
 import string
 import nltk
