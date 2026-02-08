@@ -269,7 +269,7 @@ Prinzip bezeichnet man als „naiv“, da die Unabhängigkeitsannahme in der
 Realität oft nicht zutrifft. Beispielsweise behandelt der Klassifikator das 
 Auftreten des Wortes „good“ als unabhängig vom Auftreten des Wortes „very“, 
 sofern der Text als positiv klassifiziert wurde. Bei diesem Ansatz
-müssen die Eingabedaten kategorial sein, weshalb die Texte in der 
+müssen die Eingabedaten diskret und nicht-negativ sein, weshalb die Texte in der 
 Regel als BoW- bzw. TF-IDF-Vektoren dargestellt werden (\cite{voita2024textclass}).
 
 Um die Probleme bei unbekannten Wörtern zu vermeiden, wurde die 
@@ -279,8 +279,8 @@ Durch die Glättung wurde
 verhindert, dass die Wahrscheinlichkeit für ein Wort, das im Trainingsset nicht 
 vorkam, auf Null sank und somit die gesamte Berechnung zerstörte (\cite[Kapitel B]{jurafsky2023}).
 Zusätzlich wurde das Argument \texttt{class\_prior}=None gesetzt, 
-wodurch der Klassifikator die Klassenwahrscheinlichkeiten aus den Trainingsdaten 
-selbst schätzte, ohne die A-priori zu kennen.
+wodurch die Klassenprioren automatisch aus der relativen Häufigkeit der Klassen 
+im Trainingsdatensatz geschätzt wurden.
 
 Der Naive Bayes Klassifikator zeichnet sich durch seine Einfachheit, 
 Geschwindigkeit und Interpretierbarkeit aus (\cite[Kapitel B]{jurafsky2023}). Das Training ist 
@@ -301,7 +301,7 @@ der Modelle anhand gängiger Evaluationsmetriken sowie auf dem Vergleich
 verschiedener Algorithmen.
 \section{Evaluationsmetriken}
 Zur Bewertung der Leistung wurden folgende Metriken verwendet: Accuracy, 
-Preecision, Recall, F1-Score und die Konfusionsmatrix. Die Auswahl dieser 
+Precision, Recall, F1-Score und die Konfusionsmatrix. Die Auswahl dieser 
 Metriken wurde dadurch begründet, dass Sentimentanalyse ein klassisches 
 Klassifizierungsproblem darstellt. Accuracy bietet einen allgemeinen Überblick 
 über die Modellgüte, während Precision, Recall und F1-Score die 
@@ -344,7 +344,7 @@ Bewertungsbereich zu unterscheiden.
     \label{fig:report_nb}
 \end{figure}
 
-Die Accuracy-Werte erscheinen zunächst niedrig, ist jedoch für Multiclass-Aufgaben mit 
+Die Accuracy-Werte erscheinen zunächst niedrig, sind jedoch für Multiclass-Aufgaben mit 
 mehreren Klassen typisch. Vergleichbare Studien zeigten bei fünf Klassen 
 ähnliche Werte von etwa 60\%, während binäre Klassifikationen üblicherweise 
 80–90\% erreichen (\cite{researchgate2020}). Der Grund für niedrige Accuracy-Werte bei Multiclass-Aufgaben ist, dass mit
